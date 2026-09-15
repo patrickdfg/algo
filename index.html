@@ -17,6 +17,7 @@
     .sethead{display:flex;gap:18px;justify-content:space-between;align-items:end;padding:22px 0 14px}.sethead h2{margin:0;font-size:1.7rem;letter-spacing:-.03em}.sethead p{margin:4px 0 0;color:var(--muted)}.progress{font-weight:750;color:var(--green);white-space:nowrap}
     .questions{display:grid;gap:17px}.card{background:linear-gradient(145deg,var(--panel),#0b1828);border:1px solid var(--line);border-radius:18px;padding:24px;box-shadow:0 8px 20px #0208114f}.qtop{display:flex;align-items:center;gap:10px;margin-bottom:12px}.num{display:inline-grid;place-items:center;width:34px;height:34px;background:var(--green);color:#06150d;border-radius:10px;font-weight:900}.level{font-size:.8rem;color:var(--muted);border:1px solid var(--line);padding:2px 8px;border-radius:999px}.qtitle{font-size:1.08rem;font-weight:790;line-height:1.75;margin:0;color:#f7fbff}.code{white-space:pre-wrap;background:#06101c;border-left:3px solid var(--cyan);padding:15px 17px;border-radius:8px;color:#cbeaff;font-family:"D2Coding",Consolas,monospace;margin:14px 0;line-height:1.65;overflow:auto}.answer{margin-top:18px}.answer label{display:block;font-weight:750;margin-bottom:7px}.answer textarea{width:100%;min-height:80px;resize:vertical;background:#071321;color:var(--text);border:1px solid #39506c;border-radius:11px;padding:13px}.answer textarea:focus{outline:2px solid #4fd9ff66;border-color:var(--cyan)}.actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px}.result{font-weight:750;font-size:.92rem}.result.ok{color:var(--green)}.result.no{color:var(--bad)}.solution{display:none;margin-top:12px;padding:14px 16px;border-radius:11px;background:#122a25;border:1px solid #286246;color:#dcffea}.solution.show{display:block}.solution b{color:var(--green)}
     .footactions{display:flex;justify-content:space-between;gap:12px;margin:26px 0;flex-wrap:wrap}.sources{margin-top:36px;padding-top:22px;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem}.sources a{color:var(--cyan)}
+    .card.block{border-color:#8f762e;background:linear-gradient(145deg,#182338,#101824)}.blocktag{font-size:.8rem;color:#07111f;background:var(--yellow);border:1px solid var(--yellow);padding:2px 8px;border-radius:999px;font-weight:900}.card.block textarea{min-height:150px}
     @media(max-width:800px){.hero{grid-template-columns:1fr;padding-top:34px}.prep{grid-template-columns:1fr 1fr}.topin{gap:8px}.brand{width:100%}.card{padding:19px}.sethead{align-items:start;flex-direction:column;gap:5px}}
     @media(max-width:480px){.shell{padding-inline:15px}.topin{padding-inline:15px}.prep{grid-template-columns:1fr}.hero h1{font-size:2.25rem}.btn{padding:8px 10px}.timer{margin-right:auto}.qtitle{font-size:1rem}}
     @media print{.top,.hero,.prep,.tabs,.actions,.footactions,.sources{display:none!important}body{background:white;color:#111}.shell{max-width:none;padding:0}.card{break-inside:avoid;background:white;border:1px solid #bbb;box-shadow:none;margin-bottom:14px}.answer textarea{background:white;color:#111}.solution{display:none!important}.questions{gap:0}}
@@ -26,7 +27,7 @@
   <header class="top"><div class="topin"><div class="brand"><b>DSM</b> FINAL LAB</div><span class="timer" id="timer">120:00</span><button class="btn small primary" id="timerStart">시작</button><button class="btn small" id="timerPause">일시정지</button><button class="btn small ghost" id="timerReset">초기화</button></div></header>
   <main class="shell">
     <section class="hero">
-      <div><div class="eyebrow">2026 Final Practice</div><h1>읽어 내고,<br>순서를 세우고,<br>끝까지 검증하라.</h1><p>대덕소프트웨어마이스터고 주최 전국 중학생 알고리즘 경진대회 결선 대비용 비공식 예상문제이다. 각 세트는 10문제·120분으로 구성하였으며, 실제 기출문제를 복원한 자료가 아니다.</p></div>
+      <div><div class="eyebrow">2026 Final Practice</div><h1>읽어 내고,<br>순서를 세우고,<br>끝까지 검증하라.</h1><p>대덕소프트웨어마이스터고 주최 전국 중학생 알고리즘 경진대회 결선 대비용 비공식 예상문제이다. 각 세트는 20문제·120분이며, 일반 문제 17개와 블록 코딩 구현형 3개로 구성하였다.</p></div>
       <aside class="notice"><h2>이번 주 토요일 실전 전 확인</h2><ul><li><strong>9월 19일 10:00~12:00</strong> 결선 일정</li><li>선택 분야: 스크래치 또는 엔트리</li><li>공식 문자·메일의 입실 시각과 준비물 우선</li><li>신분 확인 자료와 필기구는 안내에 따라 준비</li></ul></aside>
     </section>
     <section class="prep" aria-label="준비 요령">
@@ -52,7 +53,17 @@
       {l:'보통',t:'목록 [7, 2, 9, 2, 5]의 왼쪽부터 이웃한 두 수를 비교한다. 왼쪽 수가 더 크면 서로 바꾸며, 이 과정을 목록의 오른쪽 끝까지 단 한 번 진행하였다. 그 직후의 목록을 쓰시오.',a:['2,7,2,5,9','2 7 2 5 9'],s:'비교를 한 차례 통과하면 가장 큰 9가 끝으로 이동하여 [2,7,2,5,9]가 된다.'},
       {l:'보통',t:'a=84, b=30에서 시작한다. b가 0이 아닌 동안 r을 a를 b로 나눈 나머지로 정하고, a←b, b←r을 차례로 수행한다. 반복이 끝날 때 a의 값을 쓰시오.',a:['6'],s:'(84,30)→(30,24)→(24,6)→(6,0)이므로 6이다.'},
       {l:'보통',t:'로봇은 (0,0)에서 북쪽을 보고 있다. F는 바라보는 방향으로 한 칸, R은 오른쪽으로 90도 회전, L은 왼쪽으로 90도 회전을 뜻한다. 명령 F, R, F, F, L, F를 모두 실행한 뒤의 좌표와 방향을 쓰시오.',a:['2,2,북','(2,2) 북','2 2 북','2,2 북쪽'],s:'이동 경로는 (0,1)→(1,1)→(2,1)→(2,2)이며 마지막 방향은 북쪽이다.'},
-      {l:'도전',t:'어떤 자연수 n을 4로 나누면 나머지가 1이고, 6으로 나누면 나머지가 3이다. 이 조건을 만족하는 가장 작은 양의 정수 n을 쓰시오.',a:['9'],s:'1,5,9,… 가운데 9를 6으로 나눈 나머지가 3이므로 답은 9이다.'}
+      {l:'도전',t:'어떤 자연수 n을 4로 나누면 나머지가 1이고, 6으로 나누면 나머지가 3이다. 이 조건을 만족하는 가장 작은 양의 정수 n을 쓰시오.',a:['9'],s:'1,5,9,… 가운데 9를 6으로 나눈 나머지가 3이므로 답은 9이다.'},
+      {l:'기본',t:'변수 x를 2로 정한 뒤, x를 2x+1로 바꾸는 일을 네 번 반복하였다. 마지막 x의 값을 쓰시오.',a:['47'],s:'2→5→11→23→47의 순서로 변한다.'},
+      {l:'기본',t:'명제 A는 참이고 B는 거짓이다. “A이고 B가 아니다” 또는 “A가 아니고 B이다”라는 조건식의 결과를 참 또는 거짓으로 쓰시오.',a:['참'],s:'첫 부분은 참이고 두 번째 부분은 거짓이므로, 둘을 또는으로 연결한 결과는 참이다.'},
+      {l:'기본',t:'사과 53개를 한 상자에 최대 6개씩 넣되 모든 사과를 빠짐없이 담으려 한다. 필요한 상자의 최소 개수를 쓰시오.',a:['9'],s:'8상자에는 48개만 담을 수 있으므로 9상자가 필요하다.'},
+      {l:'보통',t:'서로 다른 수 [1,3,4,6,7,9]에서 두 수를 골라 합이 10이 되게 하는 방법의 수를 쓰시오. 두 수의 선택 순서는 구별하지 않는다.',a:['3'],s:'(1,9), (3,7), (4,6)의 세 방법이다.'},
+      {l:'기본',t:'문자열 CODE의 글자를 뒤에서부터 한 글자씩 읽어 새 문자열을 만들었다. 만들어진 문자열을 쓰시오.',a:['edoc'],s:'뒤에서부터 읽으면 E, D, O, C이므로 EDOC이다.'},
+      {l:'보통',t:'작업 A, B, C의 실행 시간이 각각 4분, 2분, 5분이다. 실행 시간이 짧은 작업부터 처리한다면 작업의 순서를 쓰시오.',a:['b,a,c','b a c','bac'],s:'2분인 B, 4분인 A, 5분인 C의 순서이다.'},
+      {l:'보통',t:'6×6 정사각 격자의 왼쪽 위에서 오른쪽 아래로 이어지는 주대각선 위의 칸은 모두 몇 개인지 쓰시오.',a:['6'],s:'각 행과 각 열에서 한 칸씩 만나므로 모두 6칸이다.'},
+      {l:'블록',type:'block',manual:true,t:'[블록 코딩 1] 사용자에게 자연수 N을 묻고, 1부터 N까지의 합을 계산하여 말하는 프로그램을 작성하시오. N=10일 때 55가 출력되어야 한다. 사용할 변수의 초깃값과 반복 범위를 포함하여 블록의 순서를 글 또는 의사 코드로 적으시오.',c:'입력 예: 10\n출력 예: 55\n필수: 묻고 기다리기, 변수, 반복, 말하기',s:'합←0으로 정한 뒤 i를 1부터 N까지 반복하여 합←합+i를 수행하고, 반복이 끝나면 합을 말한다.'},
+      {l:'블록',type:'block',manual:true,t:'[블록 코딩 2] 점수 목록 [70,85,90,65,85]에서 80점 이상인 점수의 개수와 전체 평균을 차례로 말하는 프로그램을 작성하시오. 목록을 한 번만 순회하도록 블록의 흐름을 적으시오.',c:'출력 예: 합격 3명, 평균 79\n필수 변수: 순번, 합계, 합격수',s:'합계와 합격수를 0으로 정하고 목록의 각 항목을 한 번씩 읽는다. 합계에 점수를 더하고 80 이상이면 합격수를 1 늘린다. 평균은 합계÷목록 길이로 구한다.'},
+      {l:'블록',type:'block',manual:true,t:'[블록 코딩 3] (0,0)에서 오른쪽을 보는 오브젝트가 한 변의 길이가 50인 정사각형을 그린 뒤 출발점과 처음 방향으로 돌아오게 하시오. 같은 블록을 불필요하게 반복하지 않는 프로그램을 설계하시오.',c:'조건: 선을 그으며 이동한다.\n사용 권장: 4번 반복하기, 50만큼 움직이기, 90도 돌기',s:'펜을 내린 뒤 “50만큼 움직이기→90도 돌기”를 4번 반복한다. 네 번의 회전 합이 360도이므로 위치와 방향이 모두 처음과 같다.'}
     ]},
     {title:'세트 2 · 자료와 규칙',desc:'문자열, 스택·큐, 정렬, 경로와 상태를 해석하는 실전',qs:[
       {l:'기본',t:'변수 s를 0으로 둔다. i가 1부터 5까지 증가할 때마다 j를 1부터 i까지 증가시키며 s에 j를 더한다. 모든 반복이 끝난 뒤 s의 값을 쓰시오.',a:['35'],s:'각 i에서 1, 3, 6, 10, 15가 더해져 합은 35이다.'},
@@ -64,7 +75,17 @@
       {l:'보통',t:'왼쪽부터 읽은 이진수의 현재 나머지를 r이라 할 때, 새 비트 b를 읽을 때마다 r←(2r+b)를 3으로 나눈 나머지로 고친다. r=0에서 이진수 101101을 모두 읽은 뒤 r을 쓰시오.',a:['0'],s:'101101₂은 45이며 3으로 나누어떨어진다. 따라서 r=0이다.'},
       {l:'도전',t:'활동의 구간이 (1,4), (3,5), (4,7), (5,6), (6,9), (8,10)으로 주어졌다. 끝나는 시각과 시작 시각이 같으면 이어서 할 수 있다. 서로 겹치지 않게 고를 수 있는 활동 수의 최댓값을 쓰시오.',a:['3'],s:'예를 들어 (1,4), (5,6), (8,10)을 고르면 3개이며, 4개를 고를 수는 없다.'},
       {l:'보통',t:'수열 [2,1,3,2,2]에서 서로 이웃하여 연속된 한 개 이상의 수를 골라 합이 4가 되게 하는 구간은 모두 몇 개인지 쓰시오.',a:['2'],s:'[1,3]과 마지막의 [2,2], 모두 2개이다.'},
-      {l:'도전',t:'양의 정수 n에 대하여, n이 짝수이면 2로 나누고 홀수이면 1을 더하는 일을 n=0이 될 때까지 반복하도록 프로그램을 만들었다. 이 프로그램이 끝나지 않는 까닭을 가장 작은 수의 순환을 들어 설명하시오.',k:['1','2','반복'],s:'n=1이면 1을 더해 2가 되고, n=2이면 2로 나누어 1이 된다. 1과 2를 끝없이 오가므로 0에 도달하지 않는다.'}
+      {l:'도전',t:'양의 정수 n에 대하여, n이 짝수이면 2로 나누고 홀수이면 1을 더하는 일을 n=0이 될 때까지 반복하도록 프로그램을 만들었다. 이 프로그램이 끝나지 않는 까닭을 가장 작은 수의 순환을 들어 설명하시오.',k:['1','2','반복'],s:'n=1이면 1을 더해 2가 되고, n=2이면 2로 나누어 1이 된다. 1과 2를 끝없이 오가므로 0에 도달하지 않는다.'},
+      {l:'기본',t:'대기 줄 [1,2,3]에서 맨 앞의 수를 하나 꺼내고 4를 맨 뒤에 넣은 다음, 다시 맨 앞의 수를 하나 꺼냈다. 마지막 대기 줄을 앞에서부터 쓰시오.',a:['3,4','3 4'],s:'[1,2,3]→[2,3]→[2,3,4]→[3,4]이다.'},
+      {l:'기본',t:'n=25에서 시작하여 n이 0보다 큰 동안 7을 빼는 일을 반복한다. 반복 횟수와 반복이 끝난 직후 n의 값을 순서대로 쓰시오.',a:['4,-3','4 -3'],s:'25→18→11→4→-3이므로 네 번 반복하며 마지막 값은 -3이다.'},
+      {l:'보통',t:'정점 1은 2와, 2는 1과 3과, 3은 2와 이어져 있다. 정점 4와 5는 서로 이어지고 정점 6은 홀로 있다. 연결된 무리의 수를 쓰시오.',a:['3'],s:'{1,2,3}, {4,5}, {6}의 세 무리이다.'},
+      {l:'보통',t:'2행 3열 격자의 왼쪽 위 칸에서 오른쪽 아래 칸까지 오른쪽 또는 아래쪽으로만 이동한다. 가능한 최단 이동 경로의 수를 쓰시오.',a:['3'],s:'오른쪽 두 번과 아래 한 번을 배열하는 방법은 RRD, RDR, DRR의 세 가지이다.'},
+      {l:'기본',t:'수 987654의 각 자리 숫자를 모두 더한 뒤 9로 나눈 나머지를 쓰시오.',a:['3'],s:'9+8+7+6+5+4=39이고, 39를 9로 나눈 나머지는 3이다.'},
+      {l:'기본',t:'다섯 수 [9,1,5,3,7]을 작은 순서로 놓았을 때 한가운데에 놓이는 수를 쓰시오.',a:['5'],s:'정렬하면 [1,3,5,7,9]이므로 중앙값은 5이다.'},
+      {l:'보통',t:'문자열 ABBA를 왼쪽부터 읽은 결과와 오른쪽부터 읽은 결과가 같은지 판단하고, 그 까닭을 한 문장으로 쓰시오.',k:['같'],s:'양쪽 어느 방향에서 읽어도 ABBA로 같으므로 회문이다.'},
+      {l:'블록',type:'block',manual:true,t:'[블록 코딩 1] 사용자에게 세 자리 자연수를 입력받아 각 자리의 순서를 거꾸로 한 수를 말하게 하시오. 문자열 뒤집기 블록 없이 나눗셈의 몫과 나머지를 이용한다. 입력이 483이면 384가 나와야 한다.',c:'입력 범위: 100~999\n사용 권장: 100의 자리, 10의 자리, 1의 자리 변수',s:'백의 자리←몫(수÷100), 십의 자리←몫((수 mod 100)÷10), 일의 자리←수 mod 10으로 구한 뒤 일의 자리×100+십의 자리×10+백의 자리를 말한다.'},
+      {l:'블록',type:'block',manual:true,t:'[블록 코딩 2] 목록 [2,3,2,5,3,7]에서 처음 나타난 값만 새 목록에 넣어 [2,3,5,7]을 만드는 프로그램을 작성하시오. 원래의 등장 순서를 보존하여야 한다.',c:'필수: 목록 순회, “목록에 값이 포함되어 있는가?” 조건',s:'새 목록을 비우고 원본을 앞에서부터 순회한다. 현재 값이 새 목록에 없을 때에만 새 목록의 끝에 추가한다.'},
+      {l:'블록',type:'block',manual:true,t:'[블록 코딩 3] 오브젝트가 길의 색과 벽의 색을 감지하며 미로를 이동한다. 오른쪽 길이 열려 있으면 오른쪽을 우선하고, 아니면 앞이 열려 있으면 직진하며, 둘 다 막혔으면 왼쪽으로 도는 규칙을 도착 색을 만날 때까지 반복하도록 설계하시오.',c:'종료 조건: 도착 색에 닿음\n주의: 회전 뒤 실제 이동 블록이 빠지지 않게 한다.',s:'도착 색에 닿을 때까지 반복 안에서 오른쪽을 시험한다. 열려 있으면 오른쪽 회전 후 이동, 아니면 앞이 열렸으면 이동, 둘 다 아니면 왼쪽 회전 후 이동한다.'}
     ]},
     {title:'세트 3 · 알고리즘 선택',desc:'재귀, 동적 사고, 그래프, 탐색 효율을 묻는 심화 실전',qs:[
       {l:'보통',t:'함수 f는 f(1)=1이고, n이 2 이상이면 f(n)=f(n-1)+2n으로 정해진다. f(5)의 값을 쓰시오.',a:['29'],s:'1+4+6+8+10=29이다.'},
@@ -76,7 +97,17 @@
       {l:'도전',t:'네 작업 A, B, C, D가 있다. A와 B는 모두 C보다 먼저 끝나야 하며, C는 D보다 먼저 끝나야 한다. 이 조건을 지키는 작업 순서의 수를 쓰시오.',a:['2'],s:'A,B,C,D 또는 B,A,C,D의 두 가지이다.'},
       {l:'보통',t:'수열 [3,1,4,4,2,7,6,8]을 왼쪽부터 보며, 앞서 본 모든 값보다 엄격히 큰 값이 나타날 때마다 기록한다. 기록되는 값의 개수를 쓰시오.',a:['4'],s:'3, 첫 번째 4, 7, 8이 기록되어 4개이다. 같은 4는 새 기록이 아니다.'},
       {l:'보통',t:'서로 다른 31개의 수가 오름차순으로 정렬되어 있다. 이진 탐색으로 어떤 한 수를 찾을 때 필요한 비교 횟수의 최댓값을 쓰시오.',a:['5'],s:'31=2⁵-1이므로 완전한 탐색 단계의 최댓값은 5회이다.'},
-      {l:'도전',t:'정점 1,2,3은 서로 이어진 하나의 무리를 이루고, 정점 4와 5는 서로 이어져 있으며, 정점 6은 어느 정점과도 이어져 있지 않다. 방문하지 않은 정점에서 탐색을 새로 시작할 때마다 무리 수를 1 늘린다면 최종 무리 수를 쓰시오.',a:['3'],s:'{1,2,3}, {4,5}, {6}의 세 연결 요소가 존재한다.'}
+      {l:'도전',t:'정점 1,2,3은 서로 이어진 하나의 무리를 이루고, 정점 4와 5는 서로 이어져 있으며, 정점 6은 어느 정점과도 이어져 있지 않다. 방문하지 않은 정점에서 탐색을 새로 시작할 때마다 무리 수를 1 늘린다면 최종 무리 수를 쓰시오.',a:['3'],s:'{1,2,3}, {4,5}, {6}의 세 연결 요소가 존재한다.'},
+      {l:'보통',t:'18과 24의 공배수 가운데 가장 작은 양의 정수를 쓰시오.',a:['72'],s:'18=2×3², 24=2³×3이므로 최소공배수는 2³×3²=72이다.'},
+      {l:'보통',t:'서로 다른 학생 다섯 명 가운데 대표 두 명을 뽑는다. 두 사람의 순서를 구별하지 않을 때 가능한 선택의 수를 쓰시오.',a:['10'],s:'5×4÷2=10가지이다.'},
+      {l:'도전',t:'금액 4를 1원, 2원, 3원 동전으로 만드는 방법의 수를 쓰시오. 동전은 얼마든지 사용할 수 있고, 동전을 놓는 순서는 구별하지 않는다.',a:['4'],s:'4, 3+1, 2+2, 2+1+1, 1+1+1+1의 다섯 가지가 아니라 4원 동전은 없으므로 뒤 네 가지, 즉 4가지이다.'},
+      {l:'도전',t:'1번부터 7번까지 원형으로 서 있다. 1번부터 시작하여 세 번째 사람을 차례로 제외하고, 제외된 다음 사람부터 다시 센다. 마지막에 남는 번호를 쓰시오.',a:['4'],s:'제외 순서는 3,6,2,7,5,1이며 마지막은 4번이다.'},
+      {l:'보통',t:'정렬된 목록 [2,5,8,12]에 7을 넣어 오름차순을 유지하려 한다. 첫 위치를 1번이라 할 때 7이 들어갈 위치 번호를 쓰시오.',a:['3'],s:'5와 8 사이인 세 번째 위치에 들어간다.'},
+      {l:'보통',t:'어떤 무방향 그래프의 모든 정점 차수의 합이 12이다. 이 그래프의 간선 수를 쓰시오.',a:['6'],s:'무방향 그래프에서는 각 간선이 차수 합에 두 번 세어지므로 12÷2=6이다.'},
+      {l:'도전',t:'서로 다른 세 작업의 완료 시각이 3, 7, 8이고, 각 작업은 한 번에 하나씩만 처리한다. 세 작업의 대기 시간 합을 가장 작게 하려면 실행 시간이 짧은 순서로 해야 하는 까닭을 교환의 관점에서 간단히 설명하시오.',k:['짧','먼저'],s:'긴 작업이 짧은 작업보다 앞에 있으면 두 작업의 순서를 바꿀 때 뒤 작업의 기다림이 줄어든다. 따라서 짧은 작업부터 처리해야 합이 최소가 된다.'},
+      {l:'블록',type:'block',manual:true,t:'[블록 코딩 1] 자연수 N을 입력받아 2부터 N까지의 소수를 모두 목록에 넣고 소수의 개수를 말하는 프로그램을 작성하시오. N=20일 때 개수는 8이어야 한다.',c:'판정 조건: 2부터 수-1까지 나누어떨어지는 수가 있는지 검사\n출력 예: [2,3,5,7,11,13,17,19], 8개',s:'후보를 2부터 N까지 반복한다. 나누어떨어짐을 나타내는 변수를 0으로 초기화하고 2부터 후보-1까지 검사한다. 약수가 없을 때만 소수 목록에 추가한다.'},
+      {l:'블록',type:'block',manual:true,t:'[블록 코딩 2] 목록 [5,1,4,2]를 오름차순 [1,2,4,5]로 바꾸는 버블 정렬 프로그램을 작성하시오. 이웃한 두 항목을 비교하고 필요하면 교환하는 반복 구조를 적으시오.',c:'필수: 바깥 반복, 이웃 비교, 임시 변수에 의한 교환',s:'목록 길이-1회 바깥 반복을 수행한다. 안쪽에서는 1번부터 아직 정렬되지 않은 끝까지 이웃 두 값을 비교하고, 앞 값이 크면 임시 변수를 사용하여 맞바꾼다.'},
+      {l:'블록',type:'block',manual:true,t:'[블록 코딩 3] 0은 길, 1은 벽인 격자 목록에서 시작 칸부터 도착 칸까지의 최소 이동 횟수를 구하시오. 한 번에 상하좌우 한 칸만 이동하며, 방문한 칸은 다시 대기 목록에 넣지 않도록 너비 우선 탐색을 설계하시오.',c:'저장할 정보: 행, 열, 시작점으로부터의 거리\n필수: 대기 목록, 방문 표시, 네 방향 검사',s:'시작 칸을 거리 0으로 대기 목록에 넣고 방문 표시한다. 맨 앞 칸을 꺼낼 때마다 네 이웃 중 범위 안의 길이며 미방문인 칸을 거리+1로 넣는다. 도착 칸을 처음 꺼내거나 넣은 거리가 최솟값이다.'}
     ]},
     {title:'세트 4 · 결선 리허설',desc:'여러 조건을 함께 다루고 답을 끝까지 검증하는 최종 실전',qs:[
       {l:'보통',t:'a=1, b=2에서 시작한다. 다음 두 대입을 위에서 아래의 순서로 다섯 번 반복한다. 마지막 a와 b의 값을 순서대로 쓰시오.',c:'a ← a + b\nb ← a - b',a:['18,11','18 11'],s:'(1,2)→(3,1)→(4,3)→(7,4)→(11,7)→(18,11)이다.'},
@@ -88,20 +119,30 @@
       {l:'보통',t:'여섯 자리 수 314159의 왼쪽 첫째·셋째·다섯째 자리 합에서 둘째·넷째·여섯째 자리 합을 뺀 값을 쓰시오.',a:['1'],s:'(3+4+5)-(1+1+9)=12-11=1이다.'},
       {l:'도전',t:'그래프의 이웃 목록이 1:[2,3], 2:[1,4,5], 3:[1,5], 4:[2], 5:[2,3]이다. 1에서 너비 우선 탐색을 시작하며, 같은 단계에서는 번호가 작은 이웃을 먼저 대기 줄에 넣는다. 방문 순서를 쓰시오.',a:['1,2,3,4,5','1 2 3 4 5'],s:'1에서 2,3을 넣고, 2에서 4,5가 새로 들어가므로 1,2,3,4,5 순서이다.'},
       {l:'보통',t:'세 상자에 공이 각각 8개, 3개, 5개 들어 있다. 한 번의 작업으로 공이 가장 많은 상자에서 하나를 꺼내 가장 적은 상자에 넣는다. 모든 상자의 개수 차이가 1 이하가 될 때까지 필요한 작업 수를 쓰시오.',a:['2'],s:'(8,3,5)→(7,4,5)→(6,5,5)이며, 두 번 뒤 최댓값과 최솟값의 차이가 1이 된다.'},
-      {l:'도전',t:'수열 [2,2,1,1,1,3,3]에서 같은 값이 연속하여 나타나는 가장 긴 길이를 구하려 한다. 현재 연속 길이와 지금까지의 최댓값을 이용하는 절차를 문장으로 설명하고, 최종 최댓값도 함께 쓰시오.',k:['이전','같','증가','다르','1','최대','3'],s:'이전 값과 같으면 현재 길이를 1 늘리고, 다르면 현재 길이를 1로 되돌린다. 매 단계 최댓값을 갱신한다. 최종 최댓값은 3이다.'}
+      {l:'도전',t:'수열 [2,2,1,1,1,3,3]에서 같은 값이 연속하여 나타나는 가장 긴 길이를 구하려 한다. 현재 연속 길이와 지금까지의 최댓값을 이용하는 절차를 문장으로 설명하고, 최종 최댓값도 함께 쓰시오.',k:['이전','같','증가','다르','1','최대','3'],s:'이전 값과 같으면 현재 길이를 1 늘리고, 다르면 현재 길이를 1로 되돌린다. 매 단계 최댓값을 갱신한다. 최종 최댓값은 3이다.'},
+      {l:'보통',t:'수열은 첫째 항이 2이고, 다음 항은 바로 앞 항의 두 배에서 1을 뺀 값이다. 다섯째 항을 쓰시오.',a:['17'],s:'2→3→5→9→17이다.'},
+      {l:'보통',t:'0부터 255까지만 저장할 수 있는 8비트 변수에 250과 10을 더한 뒤 256으로 나눈 나머지를 저장하였다. 저장되는 값을 쓰시오.',a:['4'],s:'250+10=260이고 260을 256으로 나눈 나머지는 4이다.'},
+      {l:'기본',t:'집합 {1,2,4,7}과 집합 {2,3,4,8}에 공통으로 들어 있는 원소를 작은 순서로 모두 쓰시오.',a:['2,4','2 4'],s:'두 집합에 모두 포함된 원소는 2와 4이다.'},
+      {l:'도전',t:'가로 3칸, 세로 2칸으로 나뉜 직사각형 격자에서 격자선을 변으로 삼는 크고 작은 직사각형의 총개수를 쓰시오.',a:['18'],s:'세로선 4개 중 2개를 고르는 6가지와 가로선 3개 중 2개를 고르는 3가지를 곱하여 18개이다.'},
+      {l:'보통',t:'기록 (A,80), (B,90), (C,80), (D,90)을 점수가 높은 순서로 안정 정렬한다. 점수가 같은 기록은 처음 순서를 유지할 때 이름의 순서를 쓰시오.',a:['b,d,a,c','b d a c','bdac'],s:'90점의 B,D가 먼저이고 80점의 A,C가 뒤따르므로 B,D,A,C이다.'},
+      {l:'기본',t:'이진 문자열 101011에 들어 있는 1의 개수가 홀수인지 짝수인지 쓰시오.',a:['짝수'],s:'1이 네 개이므로 짝수이다.'},
+      {l:'도전',t:'A에서 B까지 거리는 4, B에서 C까지는 3, A에서 C까지는 8이다. 각 길은 양방향이다. A에서 출발하여 B와 C를 모두 방문하고 A로 돌아오는 최소 거리를 쓰시오.',a:['15'],s:'A→B→C→A의 거리는 4+3+8=15이며 반대 순서도 같다.'},
+      {l:'블록',type:'block',manual:true,t:'[블록 코딩 1] 지불할 거스름돈을 입력받아 500원, 100원, 50원, 10원 동전을 가장 적게 사용한 개수를 말하는 프로그램을 작성하시오. 금액은 10원의 배수이며, 760원을 입력하면 5개가 나와야 한다.',c:'처리 순서: 큰 동전부터\n입력 예: 760\n출력 예: 5',s:'각 동전마다 몫(남은 금액÷동전값)을 개수에 더하고, 남은 금액을 동전값으로 나눈 나머지로 바꾼다. 760=500+100+100+50+10이므로 5개이다.'},
+      {l:'블록',type:'block',manual:true,t:'[블록 코딩 2] 괄호 문자열을 입력받아 올바른 괄호인지 판단하는 프로그램을 작성하시오. “(”를 만나면 깊이를 1 늘리고 “)”를 만나면 1 줄인다. 중간에 깊이가 음수가 되거나 마지막 깊이가 0이 아니면 올바르지 않다. (())()의 판정과 최대 깊이도 출력하시오.',c:'입력 예: (())()\n출력 예: 올바름, 최대 깊이 2',s:'깊이와 최대 깊이를 0으로 두고 글자를 순회한다. 여는 괄호에서 깊이를 늘리고 최대를 갱신하며, 닫는 괄호에서 줄인다. 음수가 된 적이 없고 마지막이 0이면 올바르다.'},
+      {l:'블록',type:'block',manual:true,t:'[블록 코딩 3] 수직선의 0에서 출발한 배달 로봇이 이동 목록 [3,-2,5]를 차례로 수행한다. 양수는 오른쪽, 음수는 왼쪽 이동이다. 매 이동 뒤 현재 위치를 말하고, 마지막 위치와 실제로 움직인 총거리를 출력하는 프로그램을 작성하시오.',c:'출력해야 할 마지막 값: 위치 6, 총거리 10\n주의: 총거리에는 이동값의 절댓값을 더한다.',s:'위치와 총거리를 0으로 둔다. 각 이동값을 위치에 더하고, 총거리에는 그 값의 절댓값을 더한다. 위치 변화는 0→3→1→6이며 총거리는 3+2+5=10이다.'}
     ]}
   ];
   let current=0, remaining=7200, timerId=null;
   const $=s=>document.querySelector(s), norm=s=>s.toLowerCase().replace(/[\[\](){}:=]/g,'').replace(/초/g,'').replace(/\s+/g,' ').trim();
   function storageKey(si,qi){return `dsm-final-${si}-${qi}`}
   function renderTabs(){ $('#tabs').innerHTML=sets.map((s,i)=>`<button class="tab ${i===current?'active':''}" data-i="${i}">${i+1}세트</button>`).join(''); document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{current=+b.dataset.i;resetTimer(false);render()}) }
-  function render(){renderTabs();const set=sets[current];$('#setArea').innerHTML=`<div class="sethead"><div><h2>${set.title}</h2><p>${set.desc}</p></div><div class="progress" id="progress"></div></div><div class="questions">${set.qs.map((q,i)=>`<article class="card"><div class="qtop"><span class="num">${i+1}</span><span class="level">${q.l}</span></div><p class="qtitle">${q.t}</p>${q.c?`<div class="code">${q.c}</div>`:''}<div class="answer"><label for="a${i}">나의 답</label><textarea id="a${i}" data-q="${i}" placeholder="답과 필요한 풀이 과정을 적으시오.">${localStorage.getItem(storageKey(current,i))||''}</textarea><div class="actions"><button class="btn small primary check" data-q="${i}">채점하기</button><button class="btn small ghost reveal" data-q="${i}">정답·해설 보기</button><span class="result" id="r${i}"></span></div><div class="solution" id="s${i}"><b>정답·해설</b><br>${q.s}</div></div></article>`).join('')}</div>`;
+  function render(){renderTabs();const set=sets[current];$('#setArea').innerHTML=`<div class="sethead"><div><h2>${set.title}</h2><p>${set.desc} · 일반 17문제 + 블록 코딩 3문제</p></div><div class="progress" id="progress"></div></div><div class="questions">${set.qs.map((q,i)=>`<article class="card ${q.type==='block'?'block':''}"><div class="qtop"><span class="num">${i+1}</span><span class="level">${q.l}</span>${q.type==='block'?'<span class="blocktag">직접 구현</span>':''}</div><p class="qtitle">${q.t}</p>${q.c?`<div class="code">${q.c}</div>`:''}<div class="answer"><label for="a${i}">${q.type==='block'?'블록 구성·의사 코드':'나의 답'}</label><textarea id="a${i}" data-q="${i}" placeholder="${q.type==='block'?'사용할 변수와 블록의 실행 순서를 구체적으로 적으시오.':'답과 필요한 풀이 과정을 적으시오.'}">${localStorage.getItem(storageKey(current,i))||''}</textarea><div class="actions"><button class="btn small primary check" data-q="${i}">${q.manual?'답안 저장 확인':'채점하기'}</button><button class="btn small ghost reveal" data-q="${i}">${q.manual?'모범 구현 보기':'정답·해설 보기'}</button><span class="result" id="r${i}"></span></div><div class="solution" id="s${i}"><b>${q.manual?'모범 구현':'정답·해설'}</b><br>${q.s}</div></div></article>`).join('')}</div>`;
     document.querySelectorAll('textarea').forEach(t=>t.oninput=()=>{localStorage.setItem(storageKey(current,+t.dataset.q),t.value);updateProgress()});
     document.querySelectorAll('.check').forEach(b=>b.onclick=()=>check(+b.dataset.q));
     document.querySelectorAll('.reveal').forEach(b=>b.onclick=()=>{const i=+b.dataset.q,ta=$(`#a${i}`),r=$(`#r${i}`);if(!ta.value.trim()){r.textContent='먼저 답을 적어 보세요.';r.className='result no';return} $(`#s${i}`).classList.toggle('show')}); updateProgress();window.scrollTo({top:0,behavior:'smooth'});
   }
-  function check(i){const q=sets[current].qs[i],v=norm($(`#a${i}`).value),r=$(`#r${i}`);if(!v){r.textContent='답을 먼저 입력하세요.';r.className='result no';return}let ok;if(q.k)ok=q.k.every(x=>v.includes(norm(x)));else{const answers=q.override?[q.override]:q.a;ok=answers.some(x=>norm(x)===v)}r.textContent=ok?'정답입니다.':'다시 살펴보세요. 해설로 풀이를 비교할 수 있습니다.';r.className='result '+(ok?'ok':'no')}
-  function updateProgress(){const n=sets[current].qs.filter((_,i)=>(localStorage.getItem(storageKey(current,i))||'').trim()).length;$('#progress').textContent=`답안 작성 ${n} / 10`}
+  function check(i){const q=sets[current].qs[i],v=norm($(`#a${i}`).value),r=$(`#r${i}`);if(!v){r.textContent='답을 먼저 입력하세요.';r.className='result no';return}if(q.manual){r.textContent='답안이 저장되었습니다. 모범 구현과 비교해 보세요.';r.className='result ok';return}let ok;if(q.k)ok=q.k.every(x=>v.includes(norm(x)));else{const answers=q.a;ok=answers.some(x=>norm(x)===v)}r.textContent=ok?'정답입니다.':'다시 살펴보세요. 해설로 풀이를 비교할 수 있습니다.';r.className='result '+(ok?'ok':'no')}
+  function updateProgress(){const total=sets[current].qs.length,n=sets[current].qs.filter((_,i)=>(localStorage.getItem(storageKey(current,i))||'').trim()).length;$('#progress').textContent=`답안 작성 ${n} / ${total}`}
   function displayTime(){const m=Math.floor(remaining/60),s=remaining%60;$('#timer').textContent=`${String(m).padStart(3,'0')}:${String(s).padStart(2,'0')}`;if(remaining<=1200)$('#timer').style.color='var(--bad)';else $('#timer').style.color='var(--yellow)'}
   function startTimer(){if(timerId)return;timerId=setInterval(()=>{if(remaining>0){remaining--;displayTime()}else{clearInterval(timerId);timerId=null;alert('120분이 끝났습니다. 답안을 검토하세요.')}},1000)}
   function resetTimer(confirmIt=true){if(confirmIt&&!confirm('타이머를 120분으로 되돌릴까요?'))return;clearInterval(timerId);timerId=null;remaining=7200;displayTime()}
