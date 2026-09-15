@@ -1,391 +1,260 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>알고리즘 본선 대비 문제풀이</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>제8회 2026 전국 중학생 알고리즘 경진대회 모의 본선</title>
 <style>
-:root{
-  --bg:#f7f7f5; --card:#fff; --ink:#1c1c1a; --dim:#6b6b66; --line:#e3e3df;
-  --accent:#2f6f4f; --ok:#1f7a4d; --okbg:#e8f5ee; --no:#b4322b; --nobg:#fdeceb;
-  --codebg:#f2f2ee;
-  color-scheme:light;
-}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#17181a; --card:#1f2124; --ink:#e9e9e6; --dim:#9b9b95; --line:#32353a;
-  --accent:#7fc9a2; --ok:#7fc9a2; --okbg:#1b2f26; --no:#f08d86; --nobg:#33201f;
-  --codebg:#16181b; color-scheme:dark;
-}}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);
-  font:16px/1.65 -apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
-  padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom);}
-.wrap{max-width:760px;margin:0 auto;padding:20px 16px 96px}
-h1{font-size:21px;margin:8px 0 4px;letter-spacing:-.02em}
-.lede{color:var(--dim);font-size:14px;margin:0 0 20px}
-.sets{display:grid;gap:10px}
-.setbtn{display:block;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);
-  border-radius:12px;padding:14px 16px;cursor:pointer;color:inherit;font:inherit}
-.setbtn:hover{border-color:var(--accent)}
-.setbtn b{display:block;font-size:16px}
-.setbtn span{color:var(--dim);font-size:13px}
-.setbtn i{font-style:normal;float:right;font-size:12px;color:var(--accent);font-weight:600}
-.bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px}
-.back{background:none;border:1px solid var(--line);border-radius:8px;padding:6px 12px;
-  cursor:pointer;color:var(--dim);font:inherit;font-size:14px}
-.back:hover{color:var(--ink)}
-.q{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:12px}
-.q.ok{border-color:var(--ok);background:var(--okbg)}
-.q.no{border-color:var(--no);background:var(--nobg)}
-.qh{display:flex;gap:9px;align-items:baseline;margin-bottom:4px}
-.num{font-weight:700;color:var(--accent);flex:none;font-variant-numeric:tabular-nums}
-.qt{flex:1}
-pre{background:var(--codebg);border:1px solid var(--line);border-radius:8px;padding:11px 13px;
-  overflow-x:auto;font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;margin:10px 0}
-code,c{background:var(--codebg);border-radius:4px;padding:1px 5px;
-  font:0.9em ui-monospace,SFMono-Regular,Menlo,monospace}
-.exp code{display:block;padding:10px 12px;margin:8px 0;line-height:1.7;background:var(--codebg)}
-ol.ch{margin:10px 0;padding-left:0;list-style:none;counter-reset:ch}
-ol.ch li{counter-increment:ch;margin:3px 0;padding-left:26px;position:relative;font-size:15px}
-ol.ch li::before{content:counter(ch,decimal);position:absolute;left:0;width:19px;height:19px;
-  border:1px solid var(--dim);border-radius:50%;font-size:11px;line-height:18px;text-align:center;color:var(--dim)}
-.fields{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;align-items:flex-end}
-.fld{flex:1 1 130px;min-width:0}
-.fld label{display:block;font-size:12px;color:var(--dim);margin-bottom:3px}
-.fld input{width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:8px;
-  background:var(--bg);color:inherit;font:inherit;font-size:15px}
-.fld input:focus{outline:2px solid var(--accent);outline-offset:-1px}
-.mark{font-weight:700;font-size:18px;flex:none;padding-bottom:6px}
-.selfbtns{display:flex;gap:8px;margin-top:10px}
-.selfbtns button{flex:1;padding:8px;border:1px solid var(--line);border-radius:8px;
-  background:var(--card);color:inherit;font:inherit;font-size:14px;cursor:pointer}
-.selfbtns button.on{border-color:var(--accent);color:var(--accent);font-weight:600}
-details{margin-top:11px;border-top:1px solid var(--line);padding-top:9px}
-summary{cursor:pointer;color:var(--accent);font-size:14px;font-weight:600;list-style:none}
-summary::-webkit-details-marker{display:none}
-summary::before{content:"▸ ";}
-details[open] summary::before{content:"▾ ";}
-.exp{font-size:14.5px;color:var(--ink);margin-top:8px}
-.tag{display:inline-block;font-size:11px;background:var(--codebg);color:var(--dim);
-  border-radius:4px;padding:1px 6px;margin-left:6px;vertical-align:middle}
-.foot{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);
-  padding:11px 16px calc(11px + env(safe-area-inset-bottom));display:flex;gap:10px;align-items:center}
-.foot .inner{max-width:760px;margin:0 auto;display:flex;gap:10px;align-items:center;width:100%}
-.score{flex:1;font-size:14px;color:var(--dim)}
-.score b{color:var(--ink);font-size:17px}
-.btn{padding:10px 18px;border-radius:9px;border:1px solid var(--accent);background:var(--accent);
-  color:#fff;font:inherit;font-weight:600;cursor:pointer}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn{color:#10231a}}
-.btn.ghost{background:none;color:var(--accent)}
-.hide{display:none!important}
+  body { 
+    font-family: 'KoPub Batang', 'Malgun Gothic', serif; 
+    background-color: #f4f6f9; 
+    padding: 20px; 
+    line-height: 1.8; 
+    color: #333;
+  }
+  .container { 
+    max-width: 900px; 
+    margin: 0 auto; 
+    background: #fff; 
+    padding: 50px; 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05); 
+    border-radius: 12px; 
+  }
+  h1 { 
+    text-align: center; 
+    color: #1a252f; 
+    border-bottom: 3px solid #2c3e50; 
+    padding-bottom: 15px; 
+    margin-bottom: 10px; 
+    font-size: 1.8em;
+  }
+  .notice {
+    text-align: center;
+    color: #e74c3c;
+    font-weight: bold;
+    font-size: 0.95em;
+    margin-bottom: 40px;
+    padding: 10px;
+    background-color: #fceceb;
+    border-radius: 6px;
+  }
+  .set-title {
+    font-size: 1.4em;
+    color: #2980b9;
+    border-left: 5px solid #2980b9;
+    padding-left: 10px;
+    margin-top: 50px;
+    margin-bottom: 25px;
+    font-weight: bold;
+  }
+  .question-set { 
+    margin-bottom: 35px; 
+  }
+  .question { 
+    font-size: 1.1em; 
+    font-weight: 600; 
+    color: #2c3e50; 
+    margin-bottom: 15px; 
+    word-break: keep-all;
+  }
+  .answer-box textarea { 
+    width: 100%; 
+    height: 120px; 
+    padding: 15px; 
+    font-family: inherit; 
+    font-size: 1em; 
+    border: 1px solid #dcdcdc; 
+    border-radius: 6px; 
+    resize: vertical; 
+    box-sizing: border-box; 
+    background-color: #fafafa;
+  }
+  .answer-box textarea:focus {
+    outline: none;
+    border-color: #3498db;
+    background-color: #fff;
+  }
+  
+  /* Popup (Modal) Styles */
+  .modal-overlay { 
+    display: flex; 
+    position: fixed; 
+    top: 0; left: 0; 
+    width: 100%; height: 100%; 
+    background: rgba(0,0,0,0.6); 
+    justify-content: center; 
+    align-items: center; 
+    z-index: 1000; 
+    display: none;
+  }
+  .modal { 
+    background: #fff; 
+    padding: 40px; 
+    border-radius: 12px; 
+    text-align: center; 
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2); 
+    max-width: 400px;
+    width: 90%;
+  }
+  .modal h2 { margin-top: 0; color: #2c3e50; }
+  .modal p { color: #7f8c8d; margin-bottom: 25px; }
+  .btn { 
+    display: block; 
+    width: 100%;
+    margin: 10px 0; 
+    padding: 12px 20px; 
+    font-size: 1em; 
+    font-weight: bold;
+    cursor: pointer; 
+    border: none; 
+    border-radius: 6px; 
+    color: #fff; 
+    transition: background 0.3s; 
+  }
+  .btn-download { background-color: #3498db; }
+  .btn-download:hover { background-color: #2980b9; }
+  .btn-pdf { background-color: #e74c3c; }
+  .btn-pdf:hover { background-color: #c0392b; }
+  .btn-close { background-color: #95a5a6; margin-top: 20px; }
+  .btn-close:hover { background-color: #7f8c8d; }
+  
+  /* Floating Button */
+  .floating-btn { 
+    position: fixed; 
+    bottom: 30px; 
+    right: 30px; 
+    padding: 15px 25px; 
+    background-color: #2c3e50; 
+    color: #fff; 
+    border-radius: 30px; 
+    cursor: pointer; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
+    font-weight: bold; 
+    transition: transform 0.2s;
+  }
+  .floating-btn:hover {
+    transform: translateY(-3px);
+  }
+  
+  /* Print Media Query */
+  @media print {
+    .floating-btn, .modal-overlay { display: none !important; }
+    body { background: #fff; padding: 0; }
+    .container { box-shadow: none; padding: 0; max-width: 100%; }
+    .answer-box textarea { border: 1px solid #000; }
+  }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div id="home">
-    <h1>알고리즘 본선 대비 문제풀이</h1>
-    <p class="lede">전국 중학생 알고리즘 경진대회 본선 대비 · 6세트 120문제<br>답을 적고 채점하면 정답·오답과 해설이 나옵니다.</p>
-    <div class="sets" id="sets"></div>
+
+<div class="container" id="worksheet">
+  <h1>제8회 2026 전국 중학생 알고리즘 경진대회 모의 본선</h1>
+  <div class="notice">
+    ※ 본 워크시트는 실제 기출문제 및 공식 예시문제가 아니며, 결선(9월 19일 10:00~12:00) 대비를 위해 블록 코딩(스크래치·엔트리) 원리와 컴퓨팅 사고력을 기반으로 자체 제작된 예상문제입니다.
   </div>
-  <div id="quiz" class="hide">
-    <div class="bar">
-      <button class="back" id="back">← 세트 목록</button>
-      <div><b id="qtitle"></b> <span style="color:var(--dim);font-size:13px" id="qsub"></span></div>
-    </div>
-    <div id="list"></div>
+  
+  <!-- 제 1회 모의 본선 -->
+  <div class="set-title">[제 1회] 컴퓨팅 사고력 기초 및 변수 제어</div>
+  <div class="question-set">
+    <div class="question">1. 주어진 두 변수 A와 B에 저장된 값을 서로 맞바꾸고자 한다. 제3의 임시 변수(temp)를 활용하여 데이터를 손실 없이 교환하는 알고리즘의 과정을 단계별로 논리적으로 서술하시오.</div>
+    <div class="answer-box"><textarea placeholder="논리적 근거를 바탕으로 서술하시오..."></textarea></div>
+  </div>
+  <div class="question-set">
+    <div class="question">2. 특정 오브젝트가 벽에 닿을 때마다 방향을 무작위로 바꾸어 튕겨 나가게 하려 한다. '난수(Random Number)' 블록과 '조건문'을 결합할 때 발생할 수 있는 의도치 않은 무한 루프 현상의 원인을 컴퓨팅 사고력 관점에서 설명하시오.</div>
+    <div class="answer-box"><textarea placeholder="논리적 근거를 바탕으로 서술하시오..."></textarea></div>
+  </div>
+  <div class="question-set">
+    <div class="question">3. 논리 연산자 '그리고(AND)'와 '또는(OR)'의 차이를 설명하고, "점수가 80점 이상이거나, 남은 시간이 10초 미만일 때"라는 조건을 블록으로 조립할 때 어느 연산자가 우선되어야 하는지 서술하시오.</div>
+    <div class="answer-box"><textarea placeholder="논리적 근거를 바탕으로 서술하시오..."></textarea></div>
+  </div>
+
+  <!-- 제 2회 모의 본선 -->
+  <div class="set-title">[제 2회] 반복 구조와 조건 탐색</div>
+  <div class="question-set">
+    <div class="question">1. 1부터 100까지의 자연수 중 3의 배수이면서 5의 배수가 아닌 수들의 합을 구하고자 한다. 반복문 내부에 어떠한 조건식 구조를 배치해야 연산 효율성을 높일 수 있는지 논구(論究)하시오.</div>
+    <div class="answer-box"><textarea placeholder="논리적 근거를 바탕으로 서술하시오..."></textarea></div>
+  </div>
+  <div class="question-set">
+    <div class="question">2. '무한 반복하기' 블록 내부에 '1초 기다리기' 블록을 삽입하지 않았을 때, 프로그램 실행 속도 및 컴퓨터 메모리에 미치는 영향을 절차적 관점에서 서술하시오.</div>
+    <div class="answer-box"><textarea placeholder="논리적 근거를 바탕으로 서술하시오..."></textarea></div>
+  </div>
+  <div class="question-set">
+    <div class="question">3. 리스트에 저장된 10개의 무작위 숫자 중 가장 큰 값을 찾는(최댓값 탐색) 알고리즘을 설계하고자 한다. 초기 비교값을 설정하는 방법과 그 이유를 구체적으로 설명하시오.</div>
+    <div class="answer-box"><textarea placeholder="논리적 근거를 바탕으로 서술하시오..."></textarea></div>
+  </div>
+
+  <!-- 제 3회 모의 본선 -->
+  <div class="set-title">[제 3회] 배열(리스트) 연산 및 함수 활용</div>
+  <div class="question-set">
+    <div class="question">1. 순서대로 정렬되지 않은 데이터가 담긴 리스트에서 특정 값을 찾기 위해 처음부터 끝까지 확인하는 순차 탐색(Linear Search)을 수행할 때, 발생할 수 있는 최악의 경우(Worst Case)의 탐색 횟수와 그 이유를 증명하시오.</div>
+    <div class="answer-box"><textarea placeholder="논리적 근거를 바탕으로 서술하시오..."></textarea></div>
+  </div>
+  <div class="question-set">
+    <div class="question">2. 코딩 과정에서 중복되는 블록 묶음을 '나만의 블록(스크래치)' 또는 '함수(엔트리)'로 정의하여 사용할 때 얻을 수 있는 알고리즘적 이점을 코드의 유지보수성 측면에서 서술하시오.</div>
+    <div class="answer-box"><textarea placeholder="논리적 근거를 바탕으로 서술하시오..."></textarea></div>
+  </div>
+  <div class="question-set">
+    <div class="question">3. 리스트의 인덱스(항목 번호)가 1부터 시작할 때, 리스트의 길이를 나타내는 변수 N을 활용하여 리스트의 항목을 역순으로 출력하는 원리를 설명하시오.</div>
+    <div class="answer-box"><textarea placeholder="논리적 근거를 바탕으로 서술하시오..."></textarea></div>
+  </div>
+
+  <!-- 제 4회 모의 본선 -->
+  <div class="set-title">[제 4회] 알고리즘 최적화 및 디버깅 심화</div>
+  <div class="question-set">
+    <div class="question">1. 동일한 목적을 달성하는 두 개의 알고리즘이 존재할 때, 다중 중첩된 반복문(이중, 삼중 루프)이 프로그램의 실행 성능(시간 복잡도)에 미치는 부정적 영향을 컴퓨팅 사고력을 바탕으로 논하시오.</div>
+    <div class="answer-box"><textarea placeholder="논리적 근거를 바탕으로 서술하시오..."></textarea></div>
+  </div>
+  <div class="question-set">
+    <div class="question">2. 신호 보내기와 신호 받았을 때 블록을 남용할 경우, 프로그램의 흐름을 추적하기 어려워지는 이유(스파게티 코드 현상)와 이를 방지하기 위한 구조화 방법을 서술하시오.</div>
+    <div class="answer-box"><textarea placeholder="논리적 근거를 바탕으로 서술하시오..."></textarea></div>
+  </div>
+  <div class="question-set">
+    <div class="question">3. 1부터 N까지의 합을 구하는 프로그램을 작성할 때, 반복문을 사용하여 누적 합을 구하는 방식과 수학적 공식(N*(N+1)/2)을 연산 블록으로 구현하는 방식의 차이를 효율성 측면에서 비교 서술하시오.</div>
+    <div class="answer-box"><textarea placeholder="논리적 근거를 바탕으로 서술하시오..."></textarea></div>
   </div>
 </div>
-<div class="foot hide" id="foot"><div class="inner">
-  <div class="score" id="score"></div>
-  <button class="btn ghost hide" id="reset">다시 풀기</button>
-  <button class="btn" id="grade">채점하기</button>
-</div></div>
+
+<!-- 우측 하단 플로팅 버튼 -->
+<div class="floating-btn" onclick="openModal()">출력 및 저장 옵션</div>
+
+<!-- 팝업(모달) 영역 -->
+<div class="modal-overlay" id="myModal">
+  <div class="modal">
+    <h2>워크시트 내보내기</h2>
+    <p>원하시는 작업 방식을 선택해 주십시오.</p>
+    <button class="btn btn-download" onclick="downloadHTML()">HTML 다운로드</button>
+    <button class="btn btn-pdf" onclick="window.print()">PDF 출력 (인쇄)</button>
+    <button class="btn btn-close" onclick="closeModal()">닫기</button>
+  </div>
+</div>
+
 <script>
-// 알고리즘 본선 대비 문제 데이터 — 세트별 문항, 정답, 해설
-const SETS = [
-{id:"1a", title:"Day 1 (수) A세트", sub:"환경 점검과 기본기", items:[
-{n:1,q:"변수 <c>a</c>가 0이다. <c>10번 반복 { a를 3만큼 바꾸기 }</c> 를 실행한 뒤 <c>a</c>의 값은?",f:[{l:"a",a:["30"]}],e:"<c>~만큼 바꾸기</c>는 더하기다. 3을 10번 더하므로 <b>30</b>."},
-{n:2,q:"변수 <c>a</c>가 1이다. <c>5번 반복 { a를 (a × 2)로 정하기 }</c> 를 실행한 뒤 <c>a</c>의 값은?",f:[{l:"a",a:["32"]}],e:"1 → 2 → 4 → 8 → 16 → 32. <b>32</b>. <c>만큼 바꾸기</c>(더하기)와 <c>로 정하기</c>(덮어쓰기)를 구분하는 것이 핵심이다."},
-{n:3,q:"변수 <c>a</c>가 100이다. <c>4번 반복 { a를 -7만큼 바꾸기 }</c> 를 실행한 뒤 <c>a</c>의 값은?",f:[{l:"a",a:["72"]}],e:"100 − 28 = <b>72</b>."},
-{n:4,q:"변수 <c>s</c>가 0이다. 아래를 실행한 뒤 <c>s</c>의 값은?",code:"3번 반복 {\n    4번 반복 {\n        s를 1만큼 바꾸기\n    }\n}",f:[{l:"s",a:["12"]}],e:"안쪽이 3 × 4 = 12번 돈다. <b>12</b>. 중첩 반복은 곱셈이다."},
-{n:5,q:"변수 <c>s</c>가 0, <c>i</c>가 1이다. 아래를 실행한 뒤 값은?",code:"5번 반복 {\n    s를 i만큼 바꾸기\n    i를 1만큼 바꾸기\n}",f:[{l:"s",a:["15"]},{l:"i",a:["6"]}],e:"s = 1+2+3+4+5 = <b>15</b>, i = <b>6</b>. 반복이 끝난 뒤 i가 6이 되는 것에 주의한다."},
-{n:6,q:"1부터 10까지 중 짝수만 더한다. <c>s</c>의 값은?",code:"i를 1로 정하기\n10번 반복 {\n    만약 (i를 2로 나눈 나머지) = 0 이라면 {\n        s를 i만큼 바꾸기\n    }\n    i를 1만큼 바꾸기\n}",f:[{l:"s",a:["30"]}],e:"2+4+6+8+10 = <b>30</b>."},
-{n:7,q:"변수 <c>a</c>가 5, <c>b</c>가 8이다. 아래를 실행한 뒤 값은?",code:"a를 (a + b)로 정하기\nb를 (a - b)로 정하기\na를 (a - b)로 정하기",f:[{l:"a",a:["8"]},{l:"b",a:["5"]}],e:"a=13 → b=13−8=5 → a=13−5=8. a = <b>8</b>, b = <b>5</b>. 임시 변수 없이 두 값을 맞바꾸는 기법이다. 대회에서 자주 나온다."},
-{n:8,q:"변수 <c>s</c>가 0이다. 아래를 실행한 뒤 <c>s</c>의 값은?",code:"i를 1부터 3까지 {\n    j를 1부터 3까지 {\n        만약 i = j 라면 s를 (i × j)만큼 바꾸기\n    }\n}",f:[{l:"s",a:["14"]}],e:"i=j인 경우만 더하므로 1×1 + 2×2 + 3×3 = 1+4+9 = <b>14</b>."},
-{n:9,q:"리스트 <c>수</c>가 [4, 9, 2, 7, 5]다. 모든 항목을 더하는 코드의 빈칸에 들어갈 블록은?",code:"합을 0으로 정하기\ni를 1로 정하기\n(수의 항목 수)번 반복 {\n    합을 [        ] 만큼 바꾸기\n    i를 1만큼 바꾸기\n}",c:["i","수의 i번째 항목","수의 항목 수","합"],f:[{l:"번호",a:["2"]}],e:"<b>②</b>. 값 자체가 아니라 \"i번째 항목\"을 더해야 한다. <c>i</c>를 넣으면 1+2+3+4+5가 되어 버린다."},
-{n:10,q:"9번 코드를 실행한 뒤 <c>합</c>의 값은? (리스트는 [4, 9, 2, 7, 5])",f:[{l:"합",a:["27"]}],e:"4+9+2+7+5 = <b>27</b>."},
-{n:11,q:"리스트 [4, 9, 2, 7, 5]에서 5보다 큰 항목의 개수는?",f:[{l:"개수",a:["2"]}],e:"9와 7. <b>2개</b>. \"5 이상\"이면 5도 포함되어 3개가 된다. 부등호를 반드시 다시 읽는다."},
-{n:12,q:"리스트 [4, 9, 2, 7, 5]에서 <c>3번째 항목 삭제하기</c> → <c>1번째에 10 넣기</c> 를 차례로 실행하면?",f:[{l:"리스트",a:["10,4,9,7,5"]}],e:"[4,9,2,7,5] → 3번째(2) 삭제 → [4,9,7,5] → 1번째에 10 삽입 → <b>[10, 4, 9, 7, 5]</b>. 삭제하면 뒤 항목의 번호가 한 칸씩 당겨진다는 점이 함정이다."},
-{n:13,q:"리스트 [4, 9, 2, 7, 5]에서 가장 작은 값은 몇 번째에 있는가?",f:[{l:"번째",a:["3"]}],e:"최솟값 2는 <b>3번째</b>. 값이 아니라 위치를 묻는 문제가 자주 나온다."},
-{n:14,q:"리스트를 거꾸로 뒤집어 새 리스트 <c>뒤집기</c>에 담는 코드의 빈칸은?",code:"i를 (수의 항목 수)로 정하기\n(수의 항목 수)번 반복 {\n    뒤집기에 [        ] 항목 추가하기\n    i를 -1만큼 바꾸기\n}",m:true,e:"<b>수의 i번째 항목</b>. i를 마지막 번호부터 1씩 줄이며 읽는다. 결과는 [5, 7, 2, 9, 4]."},
-{n:15,q:"리스트 <c>가</c>가 [1, 3, 5], <c>나</c>가 [2, 4]다. 번갈아 하나씩 꺼내 새 리스트에 넣되 한쪽이 먼저 비면 남은 쪽을 뒤에 붙인다. 결과는?",f:[{l:"리스트",a:["1,2,3,4,5"]}],e:"1, 2, 3, 4를 번갈아 넣고 <c>가</c>에 남은 5를 붙인다. <b>[1, 2, 3, 4, 5]</b>. 병합 정렬의 합치는 단계와 같은 동작이다."},
-{n:16,q:"<c>(3 &gt; 2) 그리고 (5 &lt; 4)</c> 의 값은? (참 또는 거짓)",f:[{l:"값",a:["거짓","false"]}],e:"참 그리고 거짓 = <b>거짓</b>. <c>그리고</c>는 둘 다 참이어야 참이다."},
-{n:17,q:"어떤 해가 윤년인지 판정하는 조건을 고르면?",c:["4로 나누어떨어진다","4로 나누어떨어지고 100으로 나누어떨어지지 않는다","(4로 나누어떨어지고 100으로 나누어떨어지지 않는다) 또는 (400으로 나누어떨어진다)","400으로 나누어떨어진다"],f:[{l:"번호",a:["3"]}],e:"<b>③</b>. 2000년은 400의 배수라 윤년, 1900년은 100의 배수이면서 400의 배수가 아니라 평년이다."},
-{n:18,q:"세 변의 길이 a, b, c로 삼각형을 만들 수 있는 조건은?",m:true,e:"가장 긴 변이 나머지 두 변의 합보다 <b>작아야</b> 한다. 세 조건을 모두 확인하려면 <c>a+b &gt; c 그리고 b+c &gt; a 그리고 a+c &gt; b</c>."},
-{n:19,q:"세 수 a, b, c 중 중간값을 구하려 한다. <c>a+b+c</c>에서 무엇을 빼면 되는가?",m:true,e:"<b>가장 큰 값과 가장 작은 값</b>을 뺀다. 최댓값·최솟값 블록만 있으면 정렬 없이 풀린다."},
-{n:20,q:"아래 등급 판정 코드는 무엇이 잘못됐는가?",code:"만약 점수 >= 60 이라면 \"D\" 말하기\n아니면 만약 점수 >= 70 이라면 \"C\" 말하기\n아니면 만약 점수 >= 80 이라면 \"B\" 말하기\n아니면 만약 점수 >= 90 이라면 \"A\" 말하기",m:true,e:"순서가 거꾸로다. 95점도 첫 조건 <c>&gt;= 60</c>에 걸려 \"D\"가 나온다. 구간 판정은 <b>큰 값부터</b> 검사해야 한다. 이 유형은 매년 나오는 단골이다."}
-]},
-{id:"1b", title:"Day 1 (수) B세트", sub:"변수·리스트·조건 심화", items:[
-{n:1,q:"변수 <c>a</c>가 2다. <c>6번 반복 { a를 5만큼 바꾸기 }</c> 를 실행한 뒤 <c>a</c>는?",f:[{l:"a",a:["32"]}],e:"2 + 30 = <b>32</b>."},
-{n:2,q:"변수 <c>a</c>가 64다. <c>4번 반복 { a를 (a ÷ 2의 몫)으로 정하기 }</c> 를 실행한 뒤 <c>a</c>는?",f:[{l:"a",a:["4"]}],e:"64 → 32 → 16 → 8 → <b>4</b>."},
-{n:3,q:"변수 <c>s</c>가 0, <c>i</c>가 10이다. <c>5번 반복 { s를 i만큼 바꾸기; i를 -2만큼 바꾸기 }</c> 를 실행하면?",f:[{l:"s",a:["30"]},{l:"i",a:["0"]}],e:"s = 10+8+6+4+2 = <b>30</b>, i = <b>0</b>."},
-{n:4,q:"<c>5번 반복 { 6번 반복 { s를 1만큼 바꾸기 } }</c> 에서 <c>s</c>는? (처음 s = 0)",f:[{l:"s",a:["30"]}],e:"5 × 6 = <b>30</b>."},
-{n:5,q:"<c>s</c>가 0이다. <c>i</c>를 1부터 7까지 돌며 <c>만약 i &gt; 3 이라면 s를 i만큼 바꾸기</c>. <c>s</c>는?",f:[{l:"s",a:["22"]}],e:"4+5+6+7 = <b>22</b>. <c>i &gt; 3</c>이므로 3은 포함되지 않는다."},
-{n:6,q:"변수 <c>a</c>가 3, <c>b</c>가 7이다. 아래를 실행한 뒤 값은?",code:"a를 (a × b)로 정하기\nb를 (a ÷ b의 몫)으로 정하기\na를 (a ÷ b의 몫)으로 정하기",f:[{l:"a",a:["7"]},{l:"b",a:["3"]}],e:"a=21 → b=21÷7=3 → a=21÷3=7. a = <b>7</b>, b = <b>3</b>. 곱셈·나눗셈으로도 두 값을 맞바꿀 수 있다. 다만 0이 들어오면 망가진다."},
-{n:7,q:"<c>s</c>가 0이다. 아래를 실행한 뒤 <c>s</c>는?",code:"i를 1부터 4까지 {\n    j를 1부터 i까지 {\n        s를 1만큼 바꾸기\n    }\n}",f:[{l:"s",a:["10"]}],e:"1+2+3+4 = <b>10</b>. 안쪽 반복 횟수가 바깥 변수에 따라 달라지는 구조다."},
-{n:8,q:"<c>p</c>가 1이다. <c>i</c>를 1, 3, 5, 7로 바꿔 가며 <c>p를 (p × i)로 정하기</c>. <c>p</c>는?",f:[{l:"p",a:["105"]}],e:"1 × 3 × 5 × 7 = <b>105</b>."},
-{n:9,q:"리스트 <c>수</c>가 [6, 13, 4, 20, 11, 7]이다. 모든 항목의 합은?",f:[{l:"합",a:["61"]}],e:"6+13+4+20+11+7 = <b>61</b>."},
-{n:10,q:"[6, 13, 4, 20, 11, 7]에서 20보다 작은 항목의 개수는?",f:[{l:"개수",a:["5"]}],e:"6, 13, 4, 11, 7 → <b>5개</b>. 20 자신은 빠진다."},
-{n:11,q:"[6, 13, 4, 20, 11, 7]에서 최댓값은 몇 번째에 있는가?",f:[{l:"번째",a:["4"]}],e:"20은 <b>4번째</b>."},
-{n:12,q:"[6, 13, 4, 20, 11, 7]에서 <c>2번째 항목 삭제하기</c> → <c>9 추가하기</c> 를 차례로 실행하면?",f:[{l:"리스트",a:["6,4,20,11,7,9"]}],e:"13을 지우고 맨 뒤에 9를 붙인다. <b>[6, 4, 20, 11, 7, 9]</b>."},
-{n:13,q:"[6, 13, 4, 20, 11, 7]에서 짝수인 항목은 몇 개인가?",f:[{l:"개수",a:["3"]}],e:"6, 4, 20 → <b>3개</b>."},
-{n:14,q:"[6, 13, 4, 20, 11, 7]에서 이웃한 두 항목의 차가 가장 큰 곳은 몇 번째와 몇 번째 사이인가?",f:[{l:"앞",a:["3"]},{l:"뒤",a:["4"]}],e:"차는 차례로 7, 9, 16, 9, 4다. <b>3번째와 4번째 사이</b>(4와 20, 차이 16). 이웃 비교는 항목 수보다 한 번 적게 돈다는 점이 중요하다."},
-{n:15,q:"<c>가</c>가 [6, 13, 4, 20, 11, 7], <c>나</c>가 [4, 9, 11, 15, 20]이다. 두 리스트에 모두 있는 값은? (작은 것부터)",f:[{l:"값",a:["4,11,20"]}],e:"<b>4, 11, 20</b>. 바깥 반복으로 <c>가</c>를 하나씩 꺼내고, 안쪽 반복으로 <c>나</c> 전체와 비교한다."},
-{n:16,q:"<c>(4 &gt;= 4) 또는 (2 &gt; 3)</c> 의 값은? (참 또는 거짓)",f:[{l:"값",a:["참","true"]}],e:"참 또는 거짓 = <b>참</b>. <c>또는</c>은 하나만 참이어도 참이다. <c>&gt;=</c>는 같아도 참이라는 점에 주의한다."},
-{n:17,q:"어떤 수가 3의 배수이면서 4의 배수인지 판정하는 조건은?",m:true,e:"<c>(n을 3으로 나눈 나머지 = 0) 그리고 (n을 4로 나눈 나머지 = 0)</c>. 12로 나눈 나머지가 0인지 확인해도 같다."},
-{n:18,q:"세 수 a, b, c 중 최댓값을 구하는 순서로 알맞은 것은?",c:["a와 b를 비교해 큰 값을 고르고, 그 값과 c를 비교한다","a와 b를 더한 뒤 c와 비교한다","세 수를 모두 더하고 3으로 나눈다","a와 c만 비교한다"],f:[{l:"번호",a:["1"]}],e:"<b>①</b>. 비교는 두 개씩 이어 간다."},
-{n:19,q:"다섯 자리 우편번호인지 확인하려면 무엇을 보면 되는가?",m:true,e:"<b>글자 수가 5인지</b>, 그리고 각 글자가 숫자인지 확인한다. 값의 크기가 아니라 자릿수를 본다."},
-{n:20,q:"아래 코드는 무엇이 잘못됐는가?",code:"만약 나이 >= 20 이라면 {\n    만약 나이 >= 65 이라면 \"경로\" 말하기\n    아니면 \"성인\" 말하기\n}\n아니면 \"미성년\" 말하기",m:true,e:"이 코드는 <b>잘못되지 않았다</b>. 바깥에서 20 이상을 먼저 걸러 내고 안쪽에서 65를 다시 나누므로 순서가 맞다. \"무조건 틀린 곳이 있다\"고 넘겨짚지 않는 훈련이다. 답이 \"이상 없음\"인 문제가 실제로 출제된다."}
-]},
-{id:"2a", title:"Day 2 (목) A세트", sub:"컴퓨팅사고력 집중", items:[
-{n:1,q:"48과 18로 아래를 실행하면 결과와 반복 횟수는? (시작은 a = 18, b = 48)",code:"a가 0이 아닌 동안 반복 {\n    (a, b)를 (b를 a로 나눈 나머지, a)로 바꾸기\n}",f:[{l:"결과",a:["6"]},{l:"반복 횟수",a:["3"]}],e:"48과 18 → 18과 12 → 12와 6 → 6과 0. 결과 <b>6</b>(최대공약수), 반복 <b>3회</b>. 유클리드 호제법이다. 이름을 몰라도 과정을 따라갈 수 있으면 된다."},
-{n:2,q:"수 6으로 아래를 실행하면 몇 번 만에 1이 되는가?",code:"n이 1이 아닌 동안 반복 {\n    만약 n이 짝수면 n을 n ÷ 2로 정하기\n    아니면 n을 (n × 3 + 1)로 정하기\n}",f:[{l:"횟수",a:["8"]}],e:"6 → 3 → 10 → 5 → 16 → 8 → 4 → 2 → 1. <b>8번</b>. 홀수에서 값이 오히려 커지는 것에 당황하지 않는다."},
-{n:3,q:"변수 <c>x</c>가 25다. 아래를 실행하면 <c>결과</c>에 무엇이 쌓이는가?",code:"x가 0보다 큰 동안 반복 {\n    결과 앞에 (x를 2로 나눈 나머지) 붙이기\n    x를 (x ÷ 2의 몫)으로 정하기\n}",f:[{l:"결과",a:["11001"]}],e:"25 → 12 → 6 → 3 → 1 → 0, 나머지는 차례로 1, 0, 0, 1, 1. 앞에 붙이므로 <b>11001</b>. 십진수를 2진수로 바꾸는 과정이다."},
-{n:4,q:"변수 <c>p</c>가 1, <c>n</c>이 5다. <c>n번 반복 { p를 (p × n)로 정하기; n을 -1만큼 바꾸기 }</c> 를 실행하면 <c>p</c>는?",f:[{l:"p",a:["120"]}],e:"함정 문제다. 반복 횟수는 시작할 때의 5로 고정되지만 n은 안에서 줄어든다. 5 × 4 × 3 × 2 × 1 = <b>120</b>. 반복 조건이 매번 다시 평가되는 구조였다면 답이 달라진다. 어떤 블록인지 반드시 확인한다."},
-{n:5,q:"다음 중 무한 반복에 빠지는 것은?",c:["i=1; i가 10보다 작은 동안 { i를 1만큼 바꾸기 }","i=1; i가 10보다 작은 동안 { i를 2만큼 바꾸기 }","i=10; i가 10보다 작은 동안 { i를 1만큼 바꾸기 }","i=1; i가 10보다 작은 동안 { i를 -1만큼 바꾸기 }"],f:[{l:"번호",a:["4"]}],e:"<b>④</b>. i가 계속 줄어들어 조건이 영원히 참이다. ③은 조건이 처음부터 거짓이라 한 번도 안 돈다(무한 반복 아님)."},
-{n:6,q:"변수 <c>합</c>이 0이다. <c>i</c>를 1부터 100까지 돌며 <c>합</c>에 <c>i</c>를 더한다. <c>합</c>은?",f:[{l:"합",a:["5050"]}],e:"1+100, 2+99 … 짝이 50개이고 각 짝의 합이 101이므로 101 × 50 = <b>5050</b>. 시간이 없을 때는 공식 <c>n(n+1)÷2</c>를 쓴다."},
-{n:7,q:"2, 5, 11, 23, 47, … 다음 수는?",f:[{l:"다음 수",a:["95"]}],e:"각 항에 2를 곱하고 1을 더한다. 47 × 2 + 1 = <b>95</b>."},
-{n:8,q:"1, 3, 6, 10, 15, 21, … 10번째 수는?",f:[{l:"10번째",a:["55"]}],e:"1씩 커지는 수를 차례로 더한다(삼각수). n번째 = n(n+1)÷2 이므로 10 × 11 ÷ 2 = <b>55</b>."},
-{n:9,q:"계단을 한 번에 1칸 또는 2칸씩 오를 수 있다. 6칸 계단을 오르는 방법은 몇 가지인가?",f:[{l:"가지",a:["13"]}],e:"1칸부터 세면 1, 2, 3, 5, 8, <b>13</b>가지. n칸의 방법 수 = (n−1)칸 + (n−2)칸 (피보나치). 마지막 한 걸음이 1칸이었는지 2칸이었는지로 나눠 생각하면 나온다."},
-{n:10,q:"8명이 서로 한 번씩 악수하면 총 몇 번인가?",f:[{l:"횟수",a:["28"]}],e:"8 × 7 ÷ 2 = <b>28번</b>. 2로 나누는 것을 빼놓는 실수가 가장 흔하다."},
-{n:11,q:"도형이 1단계에 정삼각형 1개, 2단계에 3개, 3단계에 9개로 늘어난다. 5단계에는?",f:[{l:"개수",a:["81"]}],e:"3배씩 늘어난다. 1, 3, 9, 27, <b>81개</b>."},
-{n:12,q:"[7, 3, 9, 1, 5]를 선택 정렬(남은 구간의 최솟값을 맨 앞과 교환)로 1회전 마쳤을 때는?",f:[{l:"리스트",a:["1,3,9,7,5"]}],e:"최솟값 1을 찾아 맨 앞 7과 맞바꾼다. <b>[1, 3, 9, 7, 5]</b>."},
-{n:13,q:"[7, 3, 9, 1, 5]를 선택 정렬로 3회전 마쳤을 때는?",f:[{l:"리스트",a:["1,3,5,7,9"]}],e:"1회전 [1,3,9,7,5] → 2회전에서 최솟값이 이미 제자리(3)라 그대로 → 3회전에서 5와 9를 교환. <b>[1, 3, 5, 7, 9]</b>. 3회전 만에 정렬이 끝났다."},
-{n:14,q:"[7, 3, 9, 1, 5]를 버블 정렬(이웃끼리 비교해 큰 값을 뒤로)로 1회전 마쳤을 때는?",f:[{l:"리스트",a:["3,7,1,5,9"]}],e:"7·3 교환 → [3,7,9,1,5], 7·9 유지, 9·1 교환 → [3,7,1,9,5], 9·5 교환 → <b>[3, 7, 1, 5, 9]</b>. 1회전이 끝나면 가장 큰 값이 맨 뒤에 확정된다."},
-{n:15,q:"1부터 100까지의 수 중 하나를 이진 탐색으로 찾는다. 최악의 경우 몇 번 비교하는가?",f:[{l:"횟수",a:["7"]}],e:"100 → 50 → 25 → 13 → 7 → 4 → 2 → 1 로 후보가 줄어든다. 최악 <b>7번</b>. 2를 7번 곱하면 128로 100을 넘는다는 것으로도 확인된다."},
-{n:16,q:"1부터 100까지에서 이진 탐색으로 73을 찾을 때 확인하는 중간값을 순서대로 쓰면? (쉼표로 구분)",f:[{l:"중간값",a:["50,75,62,68,71,73"]}],e:"50 → 75 → 62 → 68 → 71 → <b>73</b>. 여섯 번째에 찾는다. 중간값은 (처음 + 끝) ÷ 2의 몫으로 계산한다."},
-{n:17,q:"가로 3칸, 세로 3칸 격자의 왼쪽 위에서 오른쪽 아래까지 오른쪽과 아래로만 이동한다. 경로는 몇 가지인가?",f:[{l:"가지",a:["20"]}],e:"각 칸에 도달하는 경로 수를 왼쪽 값 + 위 값으로 채워 나간다. 오른쪽 3번, 아래 3번을 섞는 경우와 같아 <b>20가지</b>."},
-{n:18,q:"빨강·파랑·노랑 구슬 3개를 한 줄로 늘어놓는 방법은 몇 가지인가?",f:[{l:"가지",a:["6"]}],e:"3 × 2 × 1 = <b>6가지</b>."},
-{n:19,q:"A, B, C 중 한 명이 거짓말을 한다. A: \"B가 범인이다\" / B: \"나는 범인이 아니다\" / C: \"A가 거짓말을 한다\". 거짓말쟁이는?",f:[{l:"이름",a:["a"]}],e:"거짓말쟁이가 한 명이므로 B는 참을 말했고, B는 범인이 아니다. 그러면 A의 말이 거짓이고, \"A가 거짓말을 한다\"는 C의 말은 참이 된다. 거짓말쟁이는 <b>A</b>."},
-{n:20,q:"3리터 컵과 5리터 컵만으로 정확히 4리터를 만들려면?",m:true,e:"5리터를 가득 채운다 → 3리터 컵으로 옮긴다(5에 2 남음) → 3리터 컵을 비운다 → 남은 2리터를 3리터 컵에 옮긴다 → 5리터를 다시 가득 채운다 → 3리터 컵(2리터 들어 있음)에 1리터만 더 들어간다 → <b>5리터 컵에 4리터</b>가 남는다."}
-]},
-{id:"2b", title:"Day 2 (목) B세트", sub:"컴퓨팅사고력 2세트", items:[
-{n:1,q:"60과 45로 아래를 실행하면 결과와 반복 횟수는? (시작은 a = 45, b = 60)",code:"a가 0이 아닌 동안 반복 {\n    (a, b)를 (b를 a로 나눈 나머지, a)로 바꾸기\n}",f:[{l:"결과",a:["15"]},{l:"반복 횟수",a:["2"]}],e:"60과 45 → 45와 15 → 15와 0. 결과 <b>15</b>, 반복 <b>2회</b>."},
-{n:2,q:"수 12로 콜라츠 과정(짝수면 절반, 홀수면 3배 더하기 1)을 실행하면 몇 번 만에 1이 되는가?",f:[{l:"횟수",a:["9"]}],e:"12 → 6 → 3 → 10 → 5 → 16 → 8 → 4 → 2 → 1. <b>9번</b>."},
-{n:3,q:"19를 2진수로 바꾸면?",f:[{l:"2진수",a:["10011"]}],e:"19 ÷ 2 나머지를 아래에서부터 읽는다. <b>10011</b>. 검산은 16 + 2 + 1 = 19."},
-{n:4,q:"1부터 50까지의 합은?",f:[{l:"합",a:["1275"]}],e:"50 × 51 ÷ 2 = <b>1275</b>."},
-{n:5,q:"<c>s</c>가 0, <c>n</c>이 1이다. <c>s가 30보다 작은 동안 반복 { s를 n만큼 바꾸기; n을 1만큼 바꾸기 }</c>. 반복이 끝났을 때 값은?",f:[{l:"s",a:["36"]},{l:"n",a:["9"]}],e:"1, 3, 6, 10, 15, 21, 28, 36에서 멈춘다. s = <b>36</b>, n = <b>9</b>. \"~인 동안\" 반복은 <b>조건을 넘어선 뒤에 멈춘다</b>는 것이 핵심이다. 28에서 멈추지 않는다."},
-{n:6,q:"다음 중 반복이 정확히 5번 도는 것은?",c:["i=0; i가 5보다 작은 동안 { i를 1만큼 }","i=1; i가 5보다 작은 동안 { i를 1만큼 }","i=0; i가 5보다 큰 동안 { i를 1만큼 }","i=1; i가 5보다 작거나 같은 동안 { i를 2만큼 }"],f:[{l:"번호",a:["1"]}],e:"<b>①</b>. ②는 4번, ③은 0번, ④는 1→3→5→7로 3번이다."},
-{n:7,q:"3, 4, 7, 11, 18, 29, … 다음 수는?",f:[{l:"다음 수",a:["47"]}],e:"앞의 두 수를 더한다. 18 + 29 = <b>47</b>."},
-{n:8,q:"1, 4, 9, 16, 25, … 8번째 수는?",f:[{l:"8번째",a:["64"]}],e:"제곱수다. 8 × 8 = <b>64</b>."},
-{n:9,q:"계단을 한 번에 1칸, 2칸, 3칸 중 하나로 오를 수 있다. 5칸 계단을 오르는 방법은?",f:[{l:"가지",a:["13"]}],e:"1칸부터 세면 1, 2, 4, 7, <b>13</b>가지. n칸 = (n−1) + (n−2) + (n−3) 칸의 방법 수를 더한다."},
-{n:10,q:"8개 팀이 토너먼트(진 팀은 탈락)로 우승자를 가린다. 총 몇 경기인가?",f:[{l:"경기",a:["7"]}],e:"한 경기마다 한 팀이 탈락하고 7팀이 탈락해야 하므로 <b>7경기</b>. 대진표를 그리지 않고도 나온다."},
-{n:11,q:"정사각형을 1단계에 1개, 2단계에 4개, 3단계에 16개로 늘린다. 5단계의 개수는?",f:[{l:"개수",a:["256"]}],e:"4배씩 늘어난다. 1, 4, 16, 64, <b>256개</b>."},
-{n:12,q:"[8, 2, 6, 4, 1]을 선택 정렬로 1회전 마쳤을 때는?",f:[{l:"리스트",a:["1,2,6,4,8"]}],e:"최솟값 1을 맨 앞 8과 맞바꾼다. <b>[1, 2, 6, 4, 8]</b>."},
-{n:13,q:"[8, 2, 6, 4, 1]을 버블 정렬로 2회전 마쳤을 때는?",f:[{l:"리스트",a:["2,4,1,6,8"]}],e:"1회전 [2, 6, 4, 1, 8] → 2회전 <b>[2, 4, 1, 6, 8]</b>. 매 회전마다 뒤에서부터 한 개씩 확정된다."},
-{n:14,q:"[8, 2, 6, 4, 1]을 삽입 정렬(앞에서부터 꺼내 정렬된 앞부분의 알맞은 자리에 끼우기)로 2회전 마쳤을 때는?",f:[{l:"리스트",a:["2,6,8,4,1"]}],e:"1회전에서 2를 8 앞으로 → [2, 8, 6, 4, 1]. 2회전에서 6을 8 앞으로 → <b>[2, 6, 8, 4, 1]</b>."},
-{n:15,q:"1부터 1000까지의 수를 이진 탐색으로 찾을 때 최악의 비교 횟수는?",f:[{l:"횟수",a:["10"]}],e:"2를 10번 곱하면 1024로 1000을 넘는다. <b>10번</b>."},
-{n:16,q:"1부터 64까지에서 이진 탐색으로 20을 찾을 때 확인하는 중간값을 순서대로 쓰면? (쉼표로 구분)",f:[{l:"중간값",a:["32,16,24,20"]}],e:"32 → 16 → 24 → <b>20</b>. 네 번째에 찾는다."},
-{n:17,q:"가로 3칸, 세로 2칸 격자의 왼쪽 위에서 오른쪽 아래까지 오른쪽과 아래로만 간다. 경로는?",f:[{l:"가지",a:["10"]}],e:"오른쪽 3번, 아래 2번을 섞는 경우다. <b>10가지</b>. 격자에 숫자를 채워 확인하면 확실하다."},
-{n:18,q:"서로 다른 책 4권을 책꽂이에 한 줄로 꽂는 방법은?",f:[{l:"가지",a:["24"]}],e:"4 × 3 × 2 × 1 = <b>24가지</b>."},
-{n:19,q:"상자 세 개 중 하나에만 사탕이 있다. 1번: \"사탕은 2번에 있다\" / 2번: \"사탕은 여기 없다\" / 3번: \"사탕은 여기 없다\". 참인 문장이 하나뿐이면 사탕은 몇 번 상자에?",f:[{l:"번호",a:["3"]}],e:"세 경우를 모두 따진다. 사탕이 1번이면 2번·3번 문장이 참이라 2개, 2번이면 1번·3번이 참이라 2개, 3번이면 2번 문장만 참이라 1개다. 따라서 <b>3번 상자</b>. 경우의 수가 적을 때는 전부 넣어 보는 것이 가장 빠르고 확실하다."},
-{n:20,q:"무게가 다른 구슬 8개 중 가장 무거운 것 하나를 양팔 저울로만 찾으려면 최소 몇 번 달아야 하는가?",f:[{l:"횟수",a:["7"]}],e:"토너먼트와 같다. 한 번 달 때마다 한 개가 탈락하므로 <b>7번</b>."}
-]},
-{id:"3a", title:"Day 3 (금) A세트", sub:"엔트리 구현과 실전 모의", items:[
-{n:1,q:"리스트 <c>수</c>가 [12, 5, 8, 21, 3, 17, 9]다. 최댓값과 그 위치는?",f:[{l:"최댓값",a:["21"]},{l:"위치",a:["4"]}],e:"최댓값 <b>21</b>, <b>4번째</b>. 첫 항목을 기준으로 잡고 2번째부터 비교하는 것이 정석이다. 최댓값을 0으로 시작하면 음수가 들어올 때 틀린다.<br><br><code>최댓값을 (수의 1번째 항목)으로 정하기<br>위치를 1로 정하기<br>i를 2로 정하기<br>(수의 항목 수 - 1)번 반복 {<br>&nbsp;&nbsp;만약 (수의 i번째 항목) &gt; 최댓값 이라면 {<br>&nbsp;&nbsp;&nbsp;&nbsp;최댓값을 (수의 i번째 항목)으로 정하기<br>&nbsp;&nbsp;&nbsp;&nbsp;위치를 i로 정하기<br>&nbsp;&nbsp;}<br>&nbsp;&nbsp;i를 1만큼 바꾸기<br>}</code>"},
-{n:2,q:"[12, 5, 8, 21, 3, 17, 9]의 최솟값과 그 위치는?",f:[{l:"최솟값",a:["3"]},{l:"위치",a:["5"]}],e:"<b>3</b>, <b>5번째</b>. 1번 코드에서 부등호만 뒤집는다."},
-{n:3,q:"[12, 5, 8, 21, 3, 17, 9]의 합계와 평균은? (평균은 소수 둘째 자리까지)",f:[{l:"합계",a:["75"]},{l:"평균",a:["10.71","10.7"]}],e:"합계 <b>75</b>, 평균 75 ÷ 7 = 약 <b>10.71</b>. 평균은 나눗셈 순서에 주의한다. 먼저 다 더하고 마지막에 한 번 나눈다."},
-{n:4,q:"[12, 5, 8, 21, 3, 17, 9]에서 10보다 큰 항목의 개수는?",f:[{l:"개수",a:["3"]}],e:"<b>3개</b> — 12, 21, 17."},
-{n:5,q:"[12, 5, 8, 21, 3, 17, 9]에서 짝수만 골라 새 리스트에 담으면?",f:[{l:"리스트",a:["12,8"]}],e:"<b>[12, 8]</b>. 조건은 <c>(항목을 2로 나눈 나머지) = 0</c>."},
-{n:6,q:"리스트를 선택 정렬로 오름차순 정렬하는 블록 구조를 쓰라.",m:true,e:"<code>k를 1로 정하기<br>(수의 항목 수 - 1)번 반복 {<br>&nbsp;&nbsp;작은위치를 k로 정하기<br>&nbsp;&nbsp;j를 (k + 1)로 정하기<br>&nbsp;&nbsp;(수의 항목 수 - k)번 반복 {<br>&nbsp;&nbsp;&nbsp;&nbsp;만약 (수의 j번째 항목) &lt; (수의 작은위치번째 항목) 이라면 {<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;작은위치를 j로 정하기<br>&nbsp;&nbsp;&nbsp;&nbsp;}<br>&nbsp;&nbsp;&nbsp;&nbsp;j를 1만큼 바꾸기<br>&nbsp;&nbsp;}<br>&nbsp;&nbsp;임시를 (수의 k번째 항목)으로 정하기<br>&nbsp;&nbsp;수의 k번째를 (수의 작은위치번째 항목)으로 바꾸기<br>&nbsp;&nbsp;수의 작은위치번째를 임시로 바꾸기<br>&nbsp;&nbsp;k를 1만큼 바꾸기<br>}</code>결과는 [3, 5, 8, 9, 12, 17, 21]. <b>교환에 임시 변수가 필요하다</b>는 것이 핵심이다."},
-{n:7,q:"[12, 5, 8, 21, 3, 17, 9]에 17이 있는지 순서대로 찾으면 몇 번 비교하는가?",f:[{l:"횟수",a:["6"]}],e:"12, 5, 8, 21, 3, 17 → <b>6번</b>. 선형 탐색은 최악의 경우 항목 수만큼 비교한다."},
-{n:8,q:"정렬된 리스트에서만 이진 탐색을 쓸 수 있는 이유는?",m:true,e:"중간값보다 크면 오른쪽에만 있다는 판단이 정렬을 전제하기 때문이다. 정렬되지 않은 리스트에 쓰면 <b>있는 값을 못 찾는다</b>."},
-{n:9,q:"1부터 30까지의 소수는 몇 개인가?",f:[{l:"개수",a:["10"]}],e:"2, 3, 5, 7, 11, 13, 17, 19, 23, 29 → <b>10개</b>. 1은 소수가 아니다."},
-{n:10,q:"어떤 수 n이 소수인지 판정할 때, 2부터 어디까지만 나눠 보면 되는가?",m:true,e:"<b>n의 제곱근까지</b>. 36이면 6까지만 확인하면 된다. 시간이 부족한 문제에서 이 최적화가 정답과 오답을 가른다."},
-{n:11,q:"36의 약수는 모두 몇 개인가?",f:[{l:"개수",a:["9"]}],e:"1, 2, 3, 4, 6, 9, 12, 18, 36 → <b>9개</b>."},
-{n:12,q:"4827의 각 자리 숫자의 합은?",f:[{l:"합",a:["21"]}],e:"4+8+2+7 = <b>21</b>. 블록으로는 <c>n을 10으로 나눈 나머지</c>를 더하고 <c>n을 (n ÷ 10의 몫)</c>으로 줄이는 반복이다."},
-{n:13,q:"문자열 \"ALGORITHM\"의 길이와 거꾸로 뒤집은 결과는?",f:[{l:"길이",a:["9"]},{l:"뒤집기",a:["mhtirogla"]}],e:"길이 <b>9</b>, 뒤집으면 <b>MHTIROGLA</b>. 엔트리에서는 <c>(글자)의 (i)번째 글자</c> 블록을 뒤에서부터 읽어 이어 붙인다."},
-{n:14,q:"어떤 단어가 앞뒤로 읽어도 같은지(회문) 판정하려면?",m:true,e:"뒤집은 문자열과 원래 문자열을 <b>비교</b>하거나, 앞에서 i번째와 뒤에서 i번째 글자를 절반까지만 비교한다. 후자가 빠르다."},
-{n:15,q:"1부터 1000까지 중 3의 배수이면서 5의 배수인 수는 몇 개인가?",f:[{l:"개수",a:["66"]}],e:"15의 배수를 세면 된다. 1000 ÷ 15 = 66.6… → <b>66개</b>."},
-{n:16,q:"[3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5]에서 가장 많이 나온 수와 그 횟수는?",f:[{l:"수",a:["5"]},{l:"횟수",a:["3"]}],e:"<b>5가 3번</b>. 3과 1이 각 2번이다. 개수 세기용 리스트를 따로 만들어 세는 것이 정석이다."},
-{n:17,q:"16번 리스트의 항목 수와 합은?",f:[{l:"항목 수",a:["11"]},{l:"합",a:["44"]}],e:"<b>11개</b>, 합 <b>44</b>."},
-{n:18,q:"두 변수 a, b의 값을 임시 변수 없이 맞바꾸는 세 줄을 쓰라.",m:true,e:"<c>a를 (a+b)로 정하기</c> → <c>b를 (a−b)로 정하기</c> → <c>a를 (a−b)로 정하기</c>. Day 1의 7번과 같은 문제다."},
-{n:19,q:"<c>n번 반복</c> 안에 <c>n번 반복</c>이 들어 있고 그 안에 또 <c>n번 반복</c>이 있다. n이 10일 때 가장 안쪽 블록은 몇 번 실행되는가?",f:[{l:"횟수",a:["1000"]}],e:"10 × 10 × 10 = <b>1000번</b>. 삼중 반복은 n이 조금만 커져도 시간 초과가 난다는 점을 기억한다."},
-{n:20,q:"5줄짜리 삼각형 별 찍기(1줄에 1개, 2줄에 2개 … 5줄에 5개)에서 별은 모두 몇 개인가?",f:[{l:"개수",a:["15"]}],e:"바깥 반복이 줄 번호 i를 1부터 5까지 돌고, 안쪽 반복이 i번 별을 찍는다. 별은 1+2+3+4+5 = <b>15개</b>."}
-]},
-{id:"3b", title:"Day 3 (금) B세트", sub:"구현과 실전 2세트", items:[
-{n:1,q:"리스트 <c>수</c>가 [15, 4, 23, 8, 16, 42, 11, 9]다. 최댓값과 그 위치는?",f:[{l:"최댓값",a:["42"]},{l:"위치",a:["6"]}],e:"<b>42</b>, <b>6번째</b>."},
-{n:2,q:"[15, 4, 23, 8, 16, 42, 11, 9]의 최솟값과 그 위치는?",f:[{l:"최솟값",a:["4"]},{l:"위치",a:["2"]}],e:"<b>4</b>, <b>2번째</b>."},
-{n:3,q:"[15, 4, 23, 8, 16, 42, 11, 9]의 합계와 평균은?",f:[{l:"합계",a:["128"]},{l:"평균",a:["16"]}],e:"합계 <b>128</b>, 평균 128 ÷ 8 = <b>16</b>."},
-{n:4,q:"[15, 4, 23, 8, 16, 42, 11, 9]에서 15 이상인 항목의 개수는?",f:[{l:"개수",a:["4"]}],e:"<b>4개</b> — 15, 23, 16, 42. \"이상\"이므로 15가 포함된다."},
-{n:5,q:"[15, 4, 23, 8, 16, 42, 11, 9]에서 홀수만 골라 새 리스트에 담으면?",f:[{l:"리스트",a:["15,23,11,9"]}],e:"<b>[15, 23, 11, 9]</b>."},
-{n:6,q:"[15, 4, 23, 8, 16, 42, 11, 9]를 오름차순으로 정렬하면?",f:[{l:"리스트",a:["4,8,9,11,15,16,23,42"]}],e:"<b>[4, 8, 9, 11, 15, 16, 23, 42]</b>."},
-{n:7,q:"[15, 4, 23, 8, 16, 42, 11, 9]에서 16을 앞에서부터 순서대로 찾으면 몇 번 비교하는가?",f:[{l:"횟수",a:["5"]}],e:"15, 4, 23, 8, 16 → <b>5번</b>."},
-{n:8,q:"리스트에서 두 번째로 큰 값을 구하려면 어떻게 하는가?",m:true,e:"방법은 둘이다. 정렬한 뒤 뒤에서 두 번째를 읽거나(<b>23</b>), 최댓값과 2등값 변수를 함께 들고 한 번만 훑는다. 정렬 없이 한 번만 훑는 쪽이 빠르지만, 두 변수를 갱신하는 순서를 틀리기 쉽다. 시간이 넉넉하면 정렬하는 쪽이 안전하다."},
-{n:9,q:"1부터 50까지의 소수는 몇 개인가?",f:[{l:"개수",a:["15"]}],e:"2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47 → <b>15개</b>."},
-{n:10,q:"48의 약수는 모두 몇 개인가?",f:[{l:"개수",a:["10"]}],e:"1, 2, 3, 4, 6, 8, 12, 16, 24, 48 → <b>10개</b>."},
-{n:11,q:"9376의 각 자리 숫자의 합은?",f:[{l:"합",a:["25"]}],e:"9+3+7+6 = <b>25</b>."},
-{n:12,q:"문자열 \"COMPUTER\"의 길이와 거꾸로 뒤집은 결과는?",f:[{l:"길이",a:["8"]},{l:"뒤집기",a:["retupmoc"]}],e:"길이 <b>8</b>, 뒤집으면 <b>RETUPMOC</b>."},
-{n:13,q:"1부터 500까지 중 7의 배수는 몇 개인가?",f:[{l:"개수",a:["71"]}],e:"500 ÷ 7 = 71.4… → <b>71개</b>."},
-{n:14,q:"2를 10번 곱하면 얼마인가?",f:[{l:"값",a:["1024"]}],e:"<b>1024</b>. 이진 탐색·자료 크기 문제에서 자주 쓰이니 2의 거듭제곱은 1024까지 외워 둔다."},
-{n:15,q:"1부터 50까지 중 3의 배수이거나 5의 배수인 수는 몇 개인가?",f:[{l:"개수",a:["23"]}],e:"3의 배수 16개, 5의 배수 10개, 둘 다인 15의 배수 3개. 16 + 10 − 3 = <b>23개</b>. 겹치는 것을 한 번 빼는 것이 핵심이다."},
-{n:16,q:"[2, 7, 2, 9, 4, 7, 7, 1, 9, 2, 7]에서 가장 많이 나온 수와 그 횟수는?",f:[{l:"수",a:["7"]},{l:"횟수",a:["4"]}],e:"<b>7이 4번</b>. 2가 3번으로 그다음이다."},
-{n:17,q:"16번 리스트의 항목 수와 합은?",f:[{l:"항목 수",a:["11"]},{l:"합",a:["57"]}],e:"<b>11개</b>, 합 <b>57</b>."},
-{n:18,q:"7줄짜리 삼각형 별 찍기(1줄에 1개 … 7줄에 7개)에서 별은 모두 몇 개인가?",f:[{l:"개수",a:["28"]}],e:"1+2+3+4+5+6+7 = <b>28개</b>. n(n+1)÷2 로 7 × 8 ÷ 2 = 28."},
-{n:19,q:"<c>n번 반복</c> 두 개가 겹쳐 있다. n이 100일 때와 1000일 때 안쪽 블록은 각각 몇 번 실행되는가?",f:[{l:"n=100",a:["10000"]},{l:"n=1000",a:["1000000"]}],e:"<b>10000번</b>, 그리고 <b>1000000번</b>. n이 10배가 되면 실행 횟수는 100배가 된다. 이중 반복은 n이 1000을 넘어가면 시간 안에 끝나지 않는다고 보면 된다."},
-{n:20,q:"어떤 수 n이 짝수인지 판정하는 조건 중 <b>틀린</b> 것은?",c:["n을 2로 나눈 나머지가 0이다","n ÷ 2의 몫에 2를 곱하면 n과 같다","n의 마지막 자리가 0, 2, 4, 6, 8이다","n을 2로 나누면 소수점이 나오지 않으므로 n ÷ 2가 n보다 작다"],f:[{l:"번호",a:["4"]}],e:"<b>④</b>. n을 2로 나눈 값이 n보다 작은 것은 양수라면 짝수든 홀수든 항상 참이라 판정 근거가 되지 못한다. ①②③은 모두 올바른 판정이다."}
-]}
-];
+  window.onload = function() {
+    openModal();
+  };
 
-</script>
-<script>
-var cur=null, graded=false, self={};
-
-function norm(s){
-  return String(s||"").toLowerCase().trim()
-    .replace(/[\[\]（）()"'`]/g,"")
-    .replace(/[①②③④⑤]/g,function(m){return "12345"["①②③④⑤".indexOf(m)]})
-    .replace(/(번째|가지|개수|개|번|회|리터|명|점|자리|경기|쪽)/g,"")
-    .replace(/[\s·、]+/g,",")
-    .replace(/,+/g,",").replace(/^,|,$/g,"");
-}
-function save(){ try{localStorage.setItem("algo_"+cur.id, JSON.stringify({ans:collect(),self:self,graded:graded}));}catch(e){} }
-function load(){ try{return JSON.parse(localStorage.getItem("algo_"+cur.id))||null;}catch(e){return null;} }
-function collect(){
-  var o={};
-  document.querySelectorAll("#list input").forEach(function(el){ o[el.dataset.k]=el.value; });
-  return o;
-}
-
-function renderHome(){
-  var h="";
-  SETS.forEach(function(s){
-    var st=null; try{ st=JSON.parse(localStorage.getItem("algo_"+s.id)); }catch(e){}
-    var badge = (st&&st.graded) ? "완료" : "";
-    h+='<button class="setbtn" data-id="'+s.id+'"><i>'+badge+'</i><b>'+s.title+'</b><span>'+s.sub+' · 20문제</span></button>';
-  });
-  document.getElementById("sets").innerHTML=h;
-  document.querySelectorAll(".setbtn").forEach(function(b){
-    b.onclick=function(){ open(b.dataset.id); };
-  });
-}
-
-function open(id){
-  cur=SETS.filter(function(s){return s.id===id})[0];
-  graded=false; self={};
-  document.getElementById("qtitle").textContent=cur.title;
-  document.getElementById("qsub").textContent=cur.sub;
-  var h="";
-  cur.items.forEach(function(it,ix){
-    h+='<div class="q" id="q'+ix+'">';
-    h+='<div class="qh"><span class="num">'+it.n+'.</span><span class="qt">'+it.q+
-       (it.m?'<span class="tag">직접 체크</span>':'')+'</span></div>';
-    if(it.code) h+='<pre>'+esc(it.code)+'</pre>';
-    if(it.c){ h+='<ol class="ch">'; it.c.forEach(function(o){h+='<li>'+o+'</li>';}); h+='</ol>'; }
-    if(it.f){
-      h+='<div class="fields">';
-      it.f.forEach(function(f,fi){
-        h+='<div class="fld"><label>'+f.l+'</label><input data-k="'+ix+'_'+fi+'" autocomplete="off" inputmode="text"></div>';
-      });
-      h+='<span class="mark" id="m'+ix+'"></span></div>';
-    }
-    h+='<div id="self'+ix+'" class="hide"><div class="selfbtns">'+
-       '<button data-ix="'+ix+'" data-v="1">맞았음</button>'+
-       '<button data-ix="'+ix+'" data-v="0">틀렸음</button></div></div>';
-    h+='<details id="d'+ix+'"><summary>해설 보기</summary><div class="exp">'+it.e+'</div></details>';
-    h+='</div>';
-  });
-  document.getElementById("list").innerHTML=h;
-  document.querySelectorAll(".selfbtns button").forEach(function(b){
-    b.onclick=function(){
-      var ix=b.dataset.ix; self[ix]=b.dataset.v==="1";
-      b.parentNode.querySelectorAll("button").forEach(function(x){x.classList.remove("on")});
-      b.classList.add("on");
-      paint(); save();
-    };
-  });
-  document.querySelectorAll("#list input").forEach(function(el){ el.oninput=save; });
-
-  var st=load();
-  if(st){
-    if(st.ans) Object.keys(st.ans).forEach(function(k){
-      var el=document.querySelector('#list input[data-k="'+k+'"]'); if(el) el.value=st.ans[k];
-    });
-    self=st.self||{}; 
-    if(st.graded){ graded=true; }
+  function openModal() {
+    document.getElementById('myModal').style.display = 'flex';
   }
-  document.getElementById("home").classList.add("hide");
-  document.getElementById("quiz").classList.remove("hide");
-  document.getElementById("foot").classList.remove("hide");
-  paint();
-  window.scrollTo(0,0);
-}
-function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
-
-function judge(it,ix){
-  if(it.m) return self[ix]===undefined ? null : self[ix];
-  var all=true;
-  it.f.forEach(function(f,fi){
-    var el=document.querySelector('#list input[data-k="'+ix+'_'+fi+'"]');
-    var v=norm(el?el.value:"");
-    var hit=f.a.some(function(a){return norm(a)===v;});
-    if(!hit) all=false;
-  });
-  return all;
-}
-
-function paint(){
-  var right=0, total=cur.items.length, answered=0;
-  cur.items.forEach(function(it,ix){
-    var box=document.getElementById("q"+ix);
-    var mk=document.getElementById("m"+ix);
-    var sf=document.getElementById("self"+ix);
-    var dt=document.getElementById("d"+ix);
-    box.classList.remove("ok","no");
-    if(mk) mk.textContent="";
-    if(!graded){ sf.classList.add("hide"); return; }
-    dt.open=true;
-    var r=judge(it,ix);
-    if(it.m){
-      sf.classList.remove("hide");
-      sf.querySelectorAll("button").forEach(function(b){
-        b.classList.toggle("on", self[ix]!==undefined && (b.dataset.v==="1")===self[ix]);
-      });
-    }
-    if(r===null) return;
-    answered++;
-    box.classList.add(r?"ok":"no");
-    if(mk) mk.textContent = r?"○":"✕";
-    if(r) right++;
-  });
-  var s=document.getElementById("score");
-  if(!graded){ s.innerHTML="답을 적고 채점하기를 누르세요"; }
-  else {
-    var pend = cur.items.filter(function(it,ix){return it.m && self[ix]===undefined;}).length;
-    s.innerHTML="<b>"+right+" / "+total+"</b>"+(pend?" · 직접 체크 "+pend+"문제 남음":"");
+  
+  function closeModal() {
+    document.getElementById('myModal').style.display = 'none';
   }
-  document.getElementById("grade").classList.toggle("hide", graded);
-  document.getElementById("reset").classList.toggle("hide", !graded);
-}
 
-document.getElementById("grade").onclick=function(){
-  graded=true; paint(); save();
-  var first=document.querySelector(".q.no");
-  if(first) first.scrollIntoView({behavior:"smooth",block:"center"});
-  else window.scrollTo({top:0,behavior:"smooth"});
-};
-document.getElementById("reset").onclick=function(){
-  if(!confirm("이 세트의 답을 모두 지우고 다시 시작할까요?")) return;
-  try{localStorage.removeItem("algo_"+cur.id);}catch(e){}
-  open(cur.id);
-};
-document.getElementById("back").onclick=function(){
-  document.getElementById("quiz").classList.add("hide");
-  document.getElementById("foot").classList.add("hide");
-  document.getElementById("home").classList.remove("hide");
-  renderHome(); window.scrollTo(0,0);
-};
-renderHome();
+  function downloadHTML() {
+    var htmlContent = document.documentElement.outerHTML;
+    var blob = new Blob([htmlContent], {type: "text/html;charset=utf-8"});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    
+    a.href = url;
+    a.download = "제8회_전국중학생알고리즘대회_모의본선.html";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
 </script>
+
 </body>
 </html>
